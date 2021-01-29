@@ -36,7 +36,27 @@ class HomeController extends Controller
 
     public function appointment()
     {
-        $appointments = Appointment::all()->sortByDesc('id');;
+        $appointments = Appointment::all()->sortByDesc('id');
         return view('appointments/index',compact('appointments'));
+    }
+
+    public function panel()
+    {
+        return view('you-wsp/index');
+    }
+
+    public function excel()
+    {
+        return view('you-wsp/excel');
+    }
+
+    public function tomorrow()
+    {
+        return view('you-wsp/tomorrow');
+    }
+
+    public function training()
+    {
+        return view('you-wsp/training');
     }
 }

@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@action');
 Route::get('/action', 'HomeController@action');
 Route::get('/appointment', 'HomeController@appointment');
+Route::get('/you-wsp', 'HomeController@panel');
+Route::get('/you-wsp/excel', 'HomeController@excel');
+Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow');
+Route::get('/you-wsp/training', 'HomeController@training');
 
 Route::get('/actions', 'ActionController@index');
 Route::get('/actions/create', 'ActionController@create');

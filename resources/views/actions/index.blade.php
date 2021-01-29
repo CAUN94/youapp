@@ -43,38 +43,6 @@
 				</form>
 			</div>
 		</div>
-		<div class="container my-3">
-			<table id="myTable" class="table table-striped">
-				<thead>
-					<tr>
-					  <th scope="col">#</th>
-					  <th scope="col">Paciente</th>
-					  <th scope="col">Categoria</th>
-					  <th scope="col">Profesional</th>
-					  <th scope="col">Estado</th>
-					  <th scope="col">Convenio</th>
-					  <th scope="col">Prestacion</th>
-					  <th scope="col">Fecha</th>
-					</tr>
-				</thead>
-			<tbody>
-				<?php $count = 1; ?>
-				@foreach($actions as $action)
-					<tr>
-						<th scope="row">{{$count}}</th>
-						<th scope="col">{{$action['Nombre']}} {{$action['Apellido']}}</th>
-						<th scope="col">{{$action['Categoria_Nombre']}}</th>
-						<th scope="col">{{$action['Profesional']}}</th>
-						<th scope="col">{{$action['Estado']}}</th>
-						<th scope="col">{{$action['Convenio']}}</th>
-						<th scope="col">{{$action['Prestacion_Nombre']}}</th>
-						<th scope="col">{{$action['Fecha_Realizacion']}}</th>
-					</tr>
-					<?php $count++; ?>
-					@endforeach
-			</tbody>
-			</table>
-		</div>
 
 	</body>
 	<script>
