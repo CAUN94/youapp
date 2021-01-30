@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/justbett/public_html/youapp
+    - export DEPLOYPATH=/home/justbett/public_html/you-app
     - /bin/cp -R * $DEPLOYPATH
