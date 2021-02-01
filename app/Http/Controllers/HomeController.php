@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Action;
 use App\Appointment;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -25,24 +27,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $action_last = Action::last_register();
+        $appointment_last = Appointment::last_register();
+        return view('home',compact('action_last','appointment_last'));
     }
 
      public function action()
     {
-        $actions = Action::all()->sortByDesc('id');
-        return view('actions/index',compact('actions'));
+        // $actions = Action::all()->sortByDesc('id');
+        // return view('actions/index',compact('actions'));
     }
 
     public function appointment()
     {
-        $appointments = Appointment::all()->sortByDesc('id');
-        return view('appointments/index',compact('appointments'));
+        // $appointments = Appointment::all()->sortByDesc('id');
+        // return view('appointments/index',compact('appointments'));
     }
 
     public function panel()
     {
-        return view('you-wsp/index');
+        $pacientes = DB::table('appointments')->groupBy('Rut_Paciente')->orderBy('Fecha_Generación','desc')->get();
+        return view('you-wsp/index',compact('pacientes'));
     }
 
     public function excel()
@@ -52,11 +57,21 @@ class HomeController extends Controller
 
     public function tomorrow()
     {
-        return view('you-wsp/tomorrow');
+        $pacientes = Appointment::tomorrow_appoiments();
+        $appointment_last = Appointment::last_register();
+
+        return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
     }
 
     public function training()
     {
         return view('you-wsp/training');
+    }
+
+    public function medilink()
+    {
+        $action_last = Action::last_register();
+        $appointment_last = Appointment::last_register();
+        return view('import',compact('action_last','appointment_last'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('you-wsp.layout')
+@extends('layouts.layout')
 @section('container')
 <div class="container-fluid">
 

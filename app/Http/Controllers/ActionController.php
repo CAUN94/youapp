@@ -66,7 +66,7 @@ class ActionController extends Controller
         $Action = Action::groupBy('Sucursal','Nombre','Apellido','Categoria_Nr','Categoria_Nombre','Tratamiento_Nr','Profesional','Estado','Convenio','Prestacion_Nr','Prestacion_Nombre','Pieza_Tratada','Fecha_Realizacion','Precio_Prestacion','Abonoo','Total')->get();
         $ActionId = array_column($Action ->toArray(), 'id');
         Action::whereNotIn('id', $ActionId)->delete();
-        return redirect('/')->with('message', 'Excel agregado a la Base de Datos');
+        return back()->with('message-actions', 'Actualizado');
     }
 
     /**

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>You Whatsapp App</title>
+    <title>YouApp</title>
 
     <!-- Custom fonts for this template -->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,11 +38,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon">
-                    <i class="fab fa-whatsapp"></i>
+                    <i class="fas fa-laptop-medical"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">YouWSP</div>
+                <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>
             </a>
 
             <!-- Divider -->
@@ -50,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span></a>
             </li>
@@ -60,11 +60,44 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Sitios
+                Paneles
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link" href="/you-wsp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/you-wsp/tomorrow">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Agenda de Mañana</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/you-wsp/training">
+                    <i class="fas fa-running"></i>
+                    <span>Entrenamiento</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="/medilink">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Import</span>
+                </a>
+            </li>
+
+            <div class="sidebar-heading">
+                Plataformas
+            </div>
+
+             <li class="nav-item">
                 <a class="nav-link" target="_blank" href="https://youjustbetter.softwaremedilink.com/sessions/login">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Medilink</span>
@@ -85,36 +118,6 @@
                     <span>Blog</span>
                 </a>
             </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="/tomorrow.html">
-                    <i class="fas fa-calendar-day"></i>
-                    <span>Agenda de Mañana</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/training.html">
-                    <i class="fas fa-running"></i>
-                    <span>Entrenamiento</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="/salary.html">
-                    <i class="fas fa-money-check-alt"></i>
-                    <span>Sueldos</span>
-                </a>
-            </li> -->
-
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="/canceled.html">
-                    <i class="fas fa-times-circle"></i>
-                    <span>Anulados</span>
-                </a>
-            </li> -->
 
 
             <!-- Divider -->
@@ -152,10 +155,25 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Just Better</span>
-                                <img class="img-profile rounded-circle"
-                                    src="/img/you_ y naranja.png">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                                <img class="img-profile rounded-circle" src="/img/you_ y naranja.png">
                             </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ route('register') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('Registrar') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
 
                         </li>
 
@@ -207,18 +225,14 @@
     <script src="/js/sb-admin-2.min.js"></script>
 
     <!-- Excel -->
+    @yield('scripts')
 
-
-    <script src="/js/tomorrow.js"></script>
 
     <!-- Page level plugins -->
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="/js/demo/datatables-demo.js"></script>
-
-
 
 
 </body>

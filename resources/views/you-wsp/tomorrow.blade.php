@@ -1,4 +1,4 @@
-@extends('you-wsp.layout')
+@extends('layouts.layout')
 @section('container')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -42,18 +42,43 @@
                 <!-- Card Header - Dropdown -->
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Escribir Mensaje</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Cargar Citas de Mañana</h6>
+                    @if(session()->has('message-appointments'))
+                        <small>{{ session()->get('message-appointments') }}</small>
+                    @endif
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <!-- Estimad@ Nombre de Paciente: -->
-                    <div class="pt-4 pb-2">
-                        <input class="form-control-file" type="file" id="input" accept=".xls,.xlsx"  >
-                        <button class="mt-2 btn btn-primary btn-lg btn-block" id="button">Convert</button>
-                    </div>
+                    <p>Ultima actualización: {{$appointment_last}}</p>
+                    <form method="POST" action="{{url('/appointments')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <fieldset class="form-group">
+                            <div class="form-group">
+                                <input name="excel" type="file" class="form-control-file" id="field_path">
+                              </div>
+                            <small>
+                                Buscar citas.
+                                <a href="https://youjustbetter.softwaremedilink.com/reportesdinamicos"
+                                    target="_blank">
+                                     Descargar
+                                </a>
+                            </small>
+                        </fieldset>
+
+                        <button type="submit" class="mt-2 btn btn-primary btn-lg btn-block">Subir</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@stop
+
+@section('scripts')
+<script type="text/javascript">
+    pacientes = {!! json_encode($pacientes, JSON_HEX_TAG) !!}
+    console.log(pacientes)
+</script>
+<script src="/js/tomorrow.js"></script>
 @stop

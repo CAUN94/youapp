@@ -1,4 +1,4 @@
-@extends('you-wsp.layout')
+@extends('layouts.layout')
 @section('container')
 
 <div class="container-fluid">
@@ -61,4 +61,8 @@
 
 </div>
 
+@stop
+
+@section('scripts')
+    <script src="js/training.js"></script>
 @stop

@@ -24,4 +24,11 @@ class Action extends Model
 		'Abonoo',
 		'Total'
     ];
+
+    public static function last_register()
+    {
+        return Action::latest()->first()->created_at;
+    }
+
+
 }

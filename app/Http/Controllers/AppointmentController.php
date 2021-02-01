@@ -68,7 +68,7 @@ class AppointmentController extends Controller
         $Action = Appointment::groupBy('Estado','Fecha','Hora_inicio','Hora_termino','Fecha_Generación','Tratamiento_Nr','Profesional','Rut_Paciente','Nombre_paciente','Apellidos_paciente','Mail','Telefono','Celular','Convenio','Convenio_Secundario','Generación_Presupuesto','Sucursal')->get();
         $ActionId = array_column($Action ->toArray(), 'id');
         Appointment::whereNotIn('id', $ActionId)->delete();
-        return redirect('/appointment')->with('message', 'Excel agregado a la Base de Datos');
+        return back()->with('message-appointments', 'Actualizado');
     }
 
     /**
