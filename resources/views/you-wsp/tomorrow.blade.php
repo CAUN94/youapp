@@ -80,5 +80,5 @@
     pacientes = {!! json_encode($pacientes, JSON_HEX_TAG) !!}
     console.log(pacientes)
 </script>
-<script src="/js/tomorrow.js"></script>
+<script src="{{ asset('js/tomorrow.js')}}"></script>
 @stop
