@@ -38,7 +38,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home')}}" >
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-laptop-medical"></i>
                 </div>
@@ -50,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span></a>
             </li>
@@ -65,21 +65,21 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/you-wsp">
+                <a class="nav-link" href="{{ route('you-wsp') }}">
                     <i class="fab fa-whatsapp"></i>
                     <span>WhatsApp</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/you-wsp/tomorrow">
+                <a class="nav-link" href="{{ route('tomorrow') }}">
                     <i class="fas fa-calendar-day"></i>
                     <span>Agenda de Mañana</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/you-wsp/training">
+                <a class="nav-link" href="{{ route('training') }}">
                     <i class="fas fa-running"></i>
                     <span>Entrenamiento</span>
                 </a>
@@ -87,7 +87,7 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/medilink">
+                <a class="nav-link" href="{{ route('medilink') }}">
                     <i class="fas fa-file-excel"></i>
                     <span>Import</span>
                 </a>

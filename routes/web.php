@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/action', 'HomeController@action');
-Route::get('/appointment', 'HomeController@appointment');
-Route::get('/you-wsp', 'HomeController@panel');
-Route::get('/you-wsp/excel', 'HomeController@excel');
-Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow');
-Route::get('/you-wsp/training', 'HomeController@training');
-Route::get('/medilink', 'HomeController@medilink');
+// Route::get('/action', 'HomeController@action');
+// Route::get('/appointment', 'HomeController@appointment');
+Route::get('/you-wsp', 'HomeController@panel')->name('you-wsp');
+Route::get('/you-wsp/excel', 'HomeController@excel')->name('excel');
+Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow')->name('tomorrow');
+Route::get('/you-wsp/training', 'HomeController@training')->name('training');
+Route::get('/medilink', 'HomeController@medilink')->name('medilink');
 
 Route::get('/actions', 'ActionController@index');
 Route::get('/actions/create', 'ActionController@create');
