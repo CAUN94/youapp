@@ -92,9 +92,29 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('medilink') }}">
                     <i class="fas fa-file-excel"></i>
-                    <span>Import</span>
+                    <span>Importar</span>
                 </a>
             </li>
+
+            <div class="sidebar-heading">
+                Reportes
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-file-contract"></i>
+                    <span>Ocupación</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/occupation/close">Cierre de Mes</a>
+                        <a class="collapse-item" href="/occupation/last-week">Semana Vencida</a>
+                        <a class="collapse-item" href="/occupation/month">Mes Actual</a>
+                    </div>
+                </div>
+            </li>
+
 
             <div class="sidebar-heading">
                 Plataformas

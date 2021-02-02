@@ -2,14 +2,6 @@ var table = $('#pacientesTable');
 console.log(pacientes)
 table.find("tbody tr").remove();
 pacientes.forEach(function (paciente) {
-    paciente['Celular'] = paciente['Celular'].replace(/ /g,'')
-    nombre = paciente['Nombre_paciente'] + " " +paciente["Apellidos_paciente"]
-    phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
-    mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
-    link = "<a href='#' class='whatsapp' id="+phone+">+"+phone+"</a>"
-
-
-
     table.append("<tr><td>" + nombre + "</td><td>" + paciente['Rut_Paciente'] + "</td><td>" + mail + "</td><td>" + link + "</td></tr>");
 });
 

@@ -75,8 +75,5 @@ class HomeController extends Controller
         return view('import',compact('action_last','appointment_last'));
     }
 
-    public function occupation()
-    {
 
-    }
 }
