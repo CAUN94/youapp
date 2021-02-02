@@ -1,0 +1,63 @@
+# Power Query
+select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio,
+       count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador,
+       sum(PP) as Prestación, sum(A) as Abono
+from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
+       sum(Abonoo) as A, Convenio as C, concat(Nombre," ",Apellido) as P, Estado as E
+from actions
+where Fecha_Realizacion <= "2021-01-20 23:59:59" and Fecha_Realizacion >= "2020-12-21 00:00:00"
+group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;
+
+#Detalle de todos y con nombre profesional
+select Fecha_Realizacion,Profesional as Pro,Tratamiento_Nr as T,
+       sum(Precio_Prestacion) PP,sum(Abonoo) as A, Convenio as C,
+       concat(Nombre," ",Apellido) as P, Estado as E
+from actions
+where Fecha_Realizacion <= "2021-01-20 23:59:59" and Fecha_Realizacion >= "2020-12-21 00:00:00"
+# and Profesional like '%nombre%'
+group by Profesional,Tratamiento_Nr
+order by Fecha_Realizacion asc
+
+#Info util
+select min(Fecha_Realizacion) from actions;
+select max(Fecha_Realizacion) from actions;
+select unique(Profesional) from actions;
+
+#Prestaciones en 0
+select id,Profesional as Pro,Tratamiento_Nr as T, Precio_Prestacion as PP,
+       Abonoo as A, Prestacion_Nombre,Convenio as C, concat(Nombre," ",Apellido) as P, Estado as E
+from actions
+where Fecha_Realizacion <= "2021-01-20 23:59:59" and Fecha_Realizacion >= "2020-12-21 00:00:00"
+and Precio_Prestacion = 0
+order by  PP, T;
+
+
+# Re ajuste Morososs
+SELECT Query.Paciente,count(Query.Tratamiento_Nr) as Citas,
+       sum(Query.Prestación) as Prestación,
+       sum(Query.Abono) as Abono,
+       Query.Convenio as Convenio,
+       Profesional
+       from
+(select (concat(Nombre," ",Apellido)) as Paciente,
+       Convenio,
+        sum(Abonoo) as Abono,
+        sum(Precio_Prestacion) as Prestación,
+       Fecha_Realizacion,
+       Tratamiento_Nr,
+        Profesional
+from actions
+group by Nombre,Apellido,Tratamiento_Nr) as Query
+where Fecha_Realizacion <= "2021-01-20 23:59:59" and Fecha_Realizacion >= "2020-12-21 00:00:00"
+and Prestación <> Abono
+and Convenio not in ("Pro Bono","Embajador")
+group by Paciente
+order by Convenio,Prestación,Abono
+
+
+#Anulados
+
+select Nombre_paciente,Apellidos_paciente,Max(Fecha),Estado,Celular,Mail,Profesional from appointments
+where fecha <= "2021-01-26 23:59:59" and fecha >= "2021-01-19 00:00:00"
+and Estado in ('Anulado','No asiste')
+group by Rut_Paciente
