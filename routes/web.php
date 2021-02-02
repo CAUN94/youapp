@@ -23,20 +23,20 @@ Route::get('/you-wsp/training', 'HomeController@training')->name('training');
 Route::get('/medilink', 'HomeController@medilink')->name('medilink');
 
 Route::get('/actions', 'ActionController@index');
-Route::get('/actions/create', 'ActionController@create');
-Route::get('/actions/{action}', 'ActionController@show');
+// Route::get('/actions/create', 'ActionController@create');
+// Route::get('/actions/{action}', 'ActionController@show');
 Route::post('/actions', 'ActionController@store');
 Route::get('/actions/{action}/edit', 'ActionController@edit');
 Route::patch('/actions/{action}', 'ActionController@update');
-Route::delete('/actions/{action})', 'ActionController@delete');
+// Route::delete('/actions/{action})', 'ActionController@delete');
 
 Route::get('/appointments', 'AppointmentController@index');
-Route::get('/appointments/create', 'AppointmentController@create');
-Route::get('/appointments/{appointment}', 'AppointmentController@show');
+// Route::get('/appointments/create', 'AppointmentController@create');
+// Route::get('/appointments/{appointment}', 'AppointmentController@show');
 Route::post('/appointments', 'AppointmentController@store');
 Route::get('/appointments/{appointment}/edit', 'AppointmentController@edit');
 Route::patch('/appointments/{appointment}', 'AppointmentController@update');
-Route::delete('/appointments/{appointment})', 'AppointmentController@delete');
+// Route::delete('/appointments/{appointment})', 'AppointmentController@delete');
 
 Auth::routes();
 

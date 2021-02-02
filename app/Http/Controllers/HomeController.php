@@ -74,4 +74,9 @@ class HomeController extends Controller
         $appointment_last = Appointment::last_register();
         return view('import',compact('action_last','appointment_last'));
     }
+
+    public function occupation()
+    {
+
+    }
 }

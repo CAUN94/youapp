@@ -46,7 +46,7 @@
 						{{ csrf_field() }}
 						<fieldset class="form-group">
 							<div class="form-group">
-							    <input name="excel" type="file" class="form-control-file" id="field_path">
+							    <input name="excel" type="file" class="form-control-file" id="field_path1">
 							  </div>
 							<small>
 								Buscar ListadoAcciones.
@@ -80,7 +80,7 @@
 						{{ csrf_field() }}
 						<fieldset class="form-group">
 							<div class="form-group">
-							    <input name="excel" type="file" class="form-control-file" id="field_path">
+							    <input name="excel" type="file" class="form-control-file" id="field_path2">
 							  </div>
 							<small>
 								Buscar citas.

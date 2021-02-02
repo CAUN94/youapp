@@ -10,7 +10,7 @@ pacientes.forEach(function (paciente) {
 
 
 
-    table.append("<tr><td>" + nombre + "</td><td>" + paciente['Rut_Paciente'] + "</td><td>" + paciente['Sexo'] + "</td><td>" + mail + "</td><td>" + link + "</td></tr>");
+    table.append("<tr><td>" + nombre + "</td><td>" + paciente['Rut_Paciente'] + "</td><td>" + mail + "</td><td>" + link + "</td></tr>");
 });
 
 $(document).ready( function () {
