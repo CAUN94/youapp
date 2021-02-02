@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Action;
+use App\Http\Controllers\Controller;
 use App\Imports\ActionImport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -66,6 +67,11 @@ class ActionController extends Controller
         $Action = Action::groupBy('Sucursal','Nombre','Apellido','Categoria_Nr','Categoria_Nombre','Tratamiento_Nr','Profesional','Estado','Convenio','Prestacion_Nr','Prestacion_Nombre','Pieza_Tratada','Fecha_Realizacion','Precio_Prestacion','Abonoo','Total')->get();
         $ActionId = array_column($Action ->toArray(), 'id');
         Action::whereNotIn('id', $ActionId)->delete();
+        $update = Action::orderBy('id', 'desc')->first();
+        $update->updated_at = Carbon::now();
+        $update->save();
+
+
         return back()->with('message-actions', 'Actualizado');
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Imports\AppointmentImport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -68,6 +69,9 @@ class AppointmentController extends Controller
         $Action = Appointment::groupBy('Estado','Fecha','Hora_inicio','Hora_termino','Fecha_Generación','Tratamiento_Nr','Profesional','Rut_Paciente','Nombre_paciente','Apellidos_paciente','Mail','Telefono','Celular','Convenio','Convenio_Secundario','Generación_Presupuesto','Sucursal')->get();
         $ActionId = array_column($Action ->toArray(), 'id');
         Appointment::whereNotIn('id', $ActionId)->delete();
+        $update = Appointment::orderBy('id', 'desc')->first();
+        $update->updated_at = Carbon::now();
+        $update->save();
         return back()->with('message-appointments', 'Actualizado');
     }
 

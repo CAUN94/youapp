@@ -27,7 +27,7 @@ class Action extends Model
 
     public static function last_register()
     {
-        return Action::latest()->first()->created_at;
+        return Action::orderBy('updated_at','desc')->get()->first()->updated_at;
     }
 
 

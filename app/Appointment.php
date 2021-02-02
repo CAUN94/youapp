@@ -10,7 +10,7 @@ class Appointment extends Model
 {
     public static function last_register()
     {
-        return Appointment::latest()->first()->created_at;
+        return Appointment::orderBy('updated_at','desc')->get()->first()->updated_at;
     }
 
     public static function tomorrow_appoiments()
