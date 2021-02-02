@@ -108,9 +108,9 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('occupation/close') }}">Cierre de Mes</a>
-                        <a class="collapse-item" href="{{ route('occupation/last-week') }}">Semana Vencida</a>
-                        <a class="collapse-item" href="{{ route('occupation/month') }}">Mes Actual</a>
+                        <a class="collapse-item" href="{{ route('occupation', ['type' => 'close']) }}">Cierre de Mes</a>
+                        <a class="collapse-item" href="{{ route('occupation', ['type' => 'last-week']) }}">Semana Vencida</a>
+                        <a class="collapse-item" href="{{ route('occupation', ['type' => 'month']) }}">Mes Actual</a>
                     </div>
                 </div>
             </li>
