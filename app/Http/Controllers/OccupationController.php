@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class OccupationController extends Controller
 {
-    public function occupation($type)
+    public function occupation($type,$fday = Null,$lday = Null)
     {
+        if($fday != Null or $lday != Null){
+            return redirect('/');
+        }
         if($type == "close"){
             $actions = Action::close_month();
             $title = "Mes Cerrado";

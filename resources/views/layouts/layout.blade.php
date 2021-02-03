@@ -220,7 +220,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>You JustBetter</span>
+                        <span>@You JustBetter</span>
                     </div>
                 </div>
             </footer>

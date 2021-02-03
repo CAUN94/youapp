@@ -22,7 +22,7 @@ Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow')->name('tomorrow');
 Route::get('/you-wsp/training', 'HomeController@training')->name('training');
 Route::get('/medilink', 'HomeController@medilink')->name('medilink');
 
-Route::get('/occupation/{type}', 'OccupationController@occupation')->name('occupation');
+Route::get('/occupation/{type}/{fday?}/{lday?}', 'OccupationController@occupation')->name('occupation');
 
 Route::get('/actions', 'ActionController@index');
 // Route::get('/actions/create', 'ActionController@create');
