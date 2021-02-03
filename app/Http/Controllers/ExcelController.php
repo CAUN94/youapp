@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Exports\CloseExport;
 use App\Exports\LastWeekExport;
 use App\Exports\MonthExport;
+use App\Exports\ProfessionalExport;
+use App\Exports\ProfessionalsExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller
 {
-	public function export($type)
+	public function occupation($type)
     {
         if($type == "close"){
             $firstday = date('d-m',strtotime("first day of this month"));
@@ -30,7 +32,15 @@ class ExcelController extends Controller
         else {
             return redirect('/');
         }
+    }
+    public function professionals()
+    {
+        return Excel::download(new ProfessionalsExport(), "equipoyou.xlsx");
+    }
 
+    public function professional($name)
+    {
+        return Excel::download(new ProfessionalExport($name), $name.".xlsx");
     }
 
 }

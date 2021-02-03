@@ -10,7 +10,7 @@ class Appointment extends Model
 {
     public static function last_register()
     {
-        return Appointment::orderBy('updated_at','desc')->get()->first()->updated_at;
+        return Appointment::max('updated_at');
     }
 
     public static function tomorrow_appoiments()
@@ -22,5 +22,12 @@ class Appointment extends Model
     public static function noRepeat()
     {
     	return Appointment::groupBy('Estado','Fecha','Hora_inicio','Hora_termino','Fecha_Generación','Tratamiento_Nr','Profesional','Rut_Paciente','Nombre_paciente','Apellidos_paciente','Mail','Telefono','Celular','Convenio','Convenio_Secundario','Generación_Presupuesto','Sucursal')->get();
+    }
+
+    public static function canceled()
+    {
+        $firsday = Carbon::create(null,null,null,null,null,null)->startOfWeek()->subDays(7);
+        $lastday = Carbon::create(null,null,null,23,55,55);
+        return DB::select( DB::raw("select Nombre_paciente,Apellidos_paciente,Max(Fecha),Estado,Celular,Mail,Profesional from appointments where fecha <= '".$lastday."' and fecha >= '".$firsday."' and Estado in ('Anulado','No asiste') group by Rut_Paciente;") );
     }
 }

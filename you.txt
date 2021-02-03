@@ -1,6 +1,5 @@
 # Power Query
-select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio,
-       count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador,
+select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador,
        sum(PP) as Prestación, sum(A) as Abono
 from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
        sum(Abonoo) as A, Convenio as C, concat(Nombre," ",Apellido) as P, Estado as E

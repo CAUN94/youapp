@@ -32,18 +32,6 @@ class HomeController extends Controller
         return view('home',compact('action_last','appointment_last'));
     }
 
-     public function action()
-    {
-        // $actions = Action::all()->sortByDesc('id');
-        // return view('actions/index',compact('actions'));
-    }
-
-    public function appointment()
-    {
-        // $appointments = Appointment::all()->sortByDesc('id');
-        // return view('appointments/index',compact('appointments'));
-    }
-
     public function panel()
     {
         $pacientes = DB::table('appointments')->groupBy('Rut_Paciente')->orderBy('Fecha_Generación','desc')->get();
@@ -53,6 +41,12 @@ class HomeController extends Controller
     public function excel()
     {
         return view('you-wsp/excel');
+    }
+
+    public function canceled()
+    {
+        $canceled = Appointment::canceled();
+        return view('canceled/index',compact('canceled'));
     }
 
     public function tomorrow()

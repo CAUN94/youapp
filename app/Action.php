@@ -29,7 +29,7 @@ class Action extends Model
 
     public static function last_register()
     {
-        return Action::orderBy('updated_at','desc')->get()->first()->updated_at;
+        return Action::max('updated_at');
     }
 
     public function occupation($firstday,$lastday)
@@ -67,6 +67,20 @@ class Action extends Model
         return Action::groupBy('Sucursal','Nombre','Apellido','Categoria_Nr','Categoria_Nombre','Tratamiento_Nr','Profesional','Estado','Convenio','Prestacion_Nr','Prestacion_Nombre','Pieza_Tratada','Fecha_Realizacion','Precio_Prestacion','Abonoo','Total')->get();
     }
 
+    public static function professionalsCloseMonth()
+    {
+        $action = new Action;
+        $firstday = Carbon::create(null, date('m') - 1, 21, 00, 00, 01);
+        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        return DB::select( DB::raw("select Fecha_Realizacion as Fecha,Profesional as Profesional,Tratamiento_Nr as Tratamiento, sum(Precio_Prestacion) Prestación,sum(Abonoo) as Abono, Convenio as Convenio_Nombre, concat(Nombre,' ',Apellido) as Paciente, Estado as Estado  from actions  where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'  group by Profesional,Tratamiento_Nr  order by Fecha_Realizacion asc;") );
+    }
 
+    public static function professionalCloseMonth($name)
+    {
+        $action = new Action;
+        $firstday = Carbon::create(null, date('m') - 1, 21, 00, 00, 01);
+        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        return DB::select( DB::raw("select Fecha_Realizacion as Fecha,Profesional as Profesional,Tratamiento_Nr as Tratamiento, sum(Precio_Prestacion) Prestación,sum(Abonoo) as Abono, Convenio as Convenio_Nombre, concat(Nombre,' ',Apellido) as Paciente, Estado as Estado  from actions  where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' and Profesional like '".$name."'  group by Profesional,Tratamiento_Nr  order by Fecha_Realizacion asc;") );
+    }
 
 }

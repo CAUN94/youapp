@@ -10499,7 +10499,7 @@ a:focus {
     display: block;
     width: 100%;
     text-align: left;
-    padding: 1rem;
+    padding: 0.7rem 1rem;
     width: 14rem;
   }
   .sidebar .nav-item .nav-link i {

@@ -2,46 +2,34 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', 'HomeController@index');
-// Route::get('/action', 'HomeController@action');
-// Route::get('/appointment', 'HomeController@appointment');
+
 Route::get('/you-wsp', 'HomeController@panel')->name('you-wsp');
 Route::get('/excel', 'HomeController@excel')->name('excel');
 Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow')->name('tomorrow');
 Route::get('/you-wsp/training', 'HomeController@training')->name('training');
 Route::get('/medilink', 'HomeController@medilink')->name('medilink');
-
+Route::get('/canceled', 'HomeController@canceled')->name('canceled');
 Route::get('/excel', 'HomeController@excel')->name('excel');
-Route::get('/excel/{type}', 'ExcelController@export')->name('excel-download');
+
+Route::get('/excel/ocuppation/{type}', 'ExcelController@occupation')->name('excel-download');
+Route::get('/excel/professional', 'ExcelController@professionals')->name('excel-professionals');
+Route::get('/excel/professional/{name}', 'ExcelController@professional')->name('excel-professional');
+
+Route::get('/professional', 'ProfessionalController@index')->name('professional.index');
+Route::get('/professional/{name}', 'ProfessionalController@show')->name('professional.show');
 
 Route::get('/occupation/{type}/{fday?}/{lday?}', 'OccupationController@occupation')->name('occupation');
 
 Route::get('/actions', 'ActionController@index');
-// Route::get('/actions/create', 'ActionController@create');
-// Route::get('/actions/{action}', 'ActionController@show');
 Route::post('/actions', 'ActionController@store');
 Route::get('/actions/{action}/edit', 'ActionController@edit');
 Route::patch('/actions/{action}', 'ActionController@update');
-// Route::delete('/actions/{action})', 'ActionController@delete');
 
 Route::get('/appointments', 'AppointmentController@index');
-// Route::get('/appointments/create', 'AppointmentController@create');
-// Route::get('/appointments/{appointment}', 'AppointmentController@show');
 Route::post('/appointments', 'AppointmentController@store');
 Route::get('/appointments/{appointment}/edit', 'AppointmentController@edit');
 Route::patch('/appointments/{appointment}', 'AppointmentController@update');
-// Route::delete('/appointments/{appointment})', 'AppointmentController@delete');
 
 Auth::routes();
 

@@ -85,6 +85,10 @@
                             <i class="fas fa-running"></i>
                             <span>Entrenamiento</span>
                         </a>
+                        <a class="collapse-item" href="{{ route('canceled') }}">
+                            <i class="fas fa-window-close"></i>
+                            <span>Anulados</span>
+                        </a>
                     </div>
                 </div>
             </li>
@@ -125,7 +129,58 @@
                 </div>
             </li>
 
-            <div class="sidebar-heading">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    <i class="fas fa-file-contract"></i>
+                    <span>Profesionales</span>
+                </a>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('professional.index')}}">
+                            <i class="fas fa-users"></i> Equipo Completo
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klga. Daniella Vivallo Vera']) }}">
+                            <i class="fas fa-crown"></i> Daniella Vivallo
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klgo. Iver Cristi']) }}">
+                            <i class="fas fa-notes-medical"></i> Iver Cristi
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klgo. Alonso Niklitschek Sanhueza']) }}">
+                            <i class="fas fa-notes-medical"></i> Alonso Niklitschek
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klgo. César Moya Calderón']) }}">
+                            <i class="fas fa-notes-medical"></i> César Moya
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Renata Barchiesi Vitali']) }}">
+                            <i class="fas fa-notes-medical"></i> Renata Barchiesi
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Carolina Avilés Espinoza']) }}">
+                            <i class="fas fa-notes-medical"></i> Carolina Avilés
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Mariano Neira Palomo']) }}">
+                            <i class="fas fa-notes-medical"></i> Mariano Neira
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Sofía Vitali Magasich']) }}">
+                            <i class="fas fa-notes-medical"></i> Sofía Vitali
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Dr. Juan Manuel Guzmán Habinger']) }}">
+                            <i class="fas fa-notes-medical"></i> Juan Manuel Guzmán
+                        </a>
+                        {{-- <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Nta. Macarena González']) }}">
+                            <i class="fas fa-notes-medical"></i> Macarena González
+                        </a> --}}
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Sara Tarifeño Ramos']) }}">
+                            <i class="fas fa-notes-medical"></i> Sara Tarifeño
+                        </a>
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Internos You']) }}">
+                            <i class="fas fa-notes-medical"></i> Internos You
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            {{-- <div class="sidebar-heading">
                 Reportes
             </div>
 
@@ -143,19 +198,19 @@
                         </a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             <div class="sidebar-heading">
-                Reportes
+                Plataformas
             </div>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-                    aria-expanded="true" aria-controls="collapseFour">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="true" aria-controls="collapseFive">
                     <i class="fas fa-file-contract"></i>
                     <span>Otros Sitios de You</span>
                 </a>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" target="_blank" href="https://youjustbetter.softwaremedilink.com/sessions/login">
                             <i class="fas fa-calendar-alt"></i>
@@ -250,7 +305,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>@You JustBetter</span>
+                        <span>©You JustBetter</span>
                     </div>
                 </div>
             </footer>
