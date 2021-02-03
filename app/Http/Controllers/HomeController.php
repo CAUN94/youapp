@@ -72,6 +72,7 @@ class HomeController extends Controller
     {
         $action_last = Action::last_register();
         $appointment_last = Appointment::last_register();
+
         return view('import',compact('action_last','appointment_last'));
     }
 

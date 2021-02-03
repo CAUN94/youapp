@@ -16,15 +16,18 @@ class OccupationController extends Controller
         }
         if($type == "close"){
             $actions = Action::close_month();
-            $title = "Mes Cerrado";
+
+            $title = "Mes Cerrado del 21/".(date('m')-1)." al 20/".date('m');
         }
         elseif ($type == "last-week") {
             $actions = Action::last_week();
-            $title = "Semana Vencida";
+            $monday = date('d-m',strtotime("Monday last week"));
+            $title = "Semana Vencida de Lunes a Domingo de la Semana del ".$monday;
         }
         elseif ($type == "month") {
             $actions = Action::month();
-            $title = "Mes Actual";
+            $firstday = date('d-m',strtotime("first day of this month"));
+            $title = "Mes Actual desde el ".$firstday;
         }
         else {
             return redirect('/');
@@ -33,7 +36,7 @@ class OccupationController extends Controller
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);
 
-        return view('occupations.show',compact('actions','title','summary'));
+        return view('occupations.show',compact('actions','title','summary','type'));
     }
 
     public function summary($actions,$values)

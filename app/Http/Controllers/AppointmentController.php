@@ -66,7 +66,7 @@ class AppointmentController extends Controller
             $appointment->Sucursal = $value['sucursal'];
             $appointment->save();;
         }
-        $Action = Appointment::groupBy('Estado','Fecha','Hora_inicio','Hora_termino','Fecha_Generación','Tratamiento_Nr','Profesional','Rut_Paciente','Nombre_paciente','Apellidos_paciente','Mail','Telefono','Celular','Convenio','Convenio_Secundario','Generación_Presupuesto','Sucursal')->get();
+        $Action = Appointment::noRepeat();
         $ActionId = array_column($Action ->toArray(), 'id');
         Appointment::whereNotIn('id', $ActionId)->delete();
         $update = Appointment::orderBy('id', 'desc')->first();

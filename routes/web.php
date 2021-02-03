@@ -17,10 +17,13 @@ Route::get('/', 'HomeController@index');
 // Route::get('/action', 'HomeController@action');
 // Route::get('/appointment', 'HomeController@appointment');
 Route::get('/you-wsp', 'HomeController@panel')->name('you-wsp');
-Route::get('/you-wsp/excel', 'HomeController@excel')->name('excel');
+Route::get('/excel', 'HomeController@excel')->name('excel');
 Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow')->name('tomorrow');
 Route::get('/you-wsp/training', 'HomeController@training')->name('training');
 Route::get('/medilink', 'HomeController@medilink')->name('medilink');
+
+Route::get('/excel', 'HomeController@excel')->name('excel');
+Route::get('/excel/{type}', 'ExcelController@export')->name('excel-download');
 
 Route::get('/occupation/{type}/{fday?}/{lday?}', 'OccupationController@occupation')->name('occupation');
 
