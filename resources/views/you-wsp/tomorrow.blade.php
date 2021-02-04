@@ -42,32 +42,14 @@
                 <!-- Card Header - Dropdown -->
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Cargar Citas de Mañana</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Actualizar Citas de Mañana</h6>
                     @if(session()->has('message-appointments'))
                         <small>{{ session()->get('message-appointments') }}</small>
                     @endif
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <!-- Estimad@ Nombre de Paciente: -->
-                    <p>Ultima actualización: {{$appointment_last}}</p>
-                    <form method="POST" action="{{url('/appointments')}}" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <fieldset class="form-group">
-                            <div class="form-group">
-                                <input name="excel" type="file" class="form-control-file" id="field_path">
-                              </div>
-                            <small>
-                                Buscar citas.
-                                <a href="https://youjustbetter.softwaremedilink.com/reportesdinamicos"
-                                    target="_blank">
-                                     Descargar
-                                </a>
-                            </small>
-                        </fieldset>
-
-                        <button type="submit" class="mt-2 btn btn-primary btn-lg btn-block">Subir</button>
-                    </form>
+                    <a href="{{url('scraping-appointments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
         </div>

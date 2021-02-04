@@ -62,9 +62,9 @@ class ScrapingController extends Controller
 	            $appointment->save();
 			}
 		}
-	    $Action = Appointment::noRepeat();
-        $ActionId = array_column($Action ->toArray(), 'id');
-        Appointment::whereNotIn('id', $ActionId)->delete();
+	    $Appointment = Appointment::noRepeat();
+        $AppointmentId = array_column($Appointment ->toArray(), 'id');
+        Appointment::whereNotIn('id', $AppointmentId)->delete();
         $update = Appointment::orderBy('id', 'desc')->first();
         $update->updated_at = Carbon::now();
         $update->save();
