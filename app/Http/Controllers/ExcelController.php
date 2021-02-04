@@ -12,7 +12,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller
 {
-	public function occupation($type)
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function occupation($type)
     {
         if($type == "close"){
             $firstday = date('d-m',strtotime("first day of this month"));

@@ -1,4 +1,4 @@
-# Power Query
+# Power Query Lista
 select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador,
        sum(PP) as Prestación, sum(A) as Abono
 from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
@@ -7,7 +7,7 @@ from actions
 where Fecha_Realizacion <= "2021-01-20 23:59:59" and Fecha_Realizacion >= "2020-12-21 00:00:00"
 group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;
 
-#Detalle de todos y con nombre profesional
+#Detalle de todos y con nombre profesional Lista
 select Fecha_Realizacion,Profesional as Pro,Tratamiento_Nr as T,
        sum(Precio_Prestacion) PP,sum(Abonoo) as A, Convenio as C,
        concat(Nombre," ",Apellido) as P, Estado as E
@@ -31,7 +31,7 @@ and Precio_Prestacion = 0
 order by  PP, T;
 
 
-# Re ajuste Morososs
+# Re ajuste Morosos
 SELECT Query.Paciente,count(Query.Tratamiento_Nr) as Citas,
        sum(Query.Prestación) as Prestación,
        sum(Query.Abono) as Abono,
@@ -54,7 +54,7 @@ group by Paciente
 order by Convenio,Prestación,Abono
 
 
-#Anulados
+#Anulados Listo
 
 select Nombre_paciente,Apellidos_paciente,Max(Fecha),Estado,Celular,Mail,Profesional from appointments
 where fecha <= "2021-01-26 23:59:59" and fecha >= "2021-01-19 00:00:00"

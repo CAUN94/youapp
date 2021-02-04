@@ -41,24 +41,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <!-- Estimad@ Nombre de Paciente: -->
-                    <form method="POST" action="{{url('/actions')}}" enctype="multipart/form-data">
-						{{ csrf_field() }}
-						<fieldset class="form-group">
-							<div class="form-group">
-							    <input name="excel" type="file" class="form-control-file" id="field_path1">
-							  </div>
-							<small>
-								Buscar ListadoAcciones.
-								<a href="https://youjustbetter.softwaremedilink.com/reportesdinamicos"
-									target="_blank">
-									 Descargar
-								</a>
-							</small>
-						</fieldset>
-
-						<button type="submit" class="mt-2 btn btn-primary btn-lg btn-block">Subir</button>
-					</form>
+                        <a href="{{url('scraping-actions')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
         </div>
@@ -75,24 +58,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <!-- Estimad@ Nombre de Paciente: -->
-                    <form method="POST" action="{{url('/appointments')}}" enctype="multipart/form-data">
-						{{ csrf_field() }}
-						<fieldset class="form-group">
-							<div class="form-group">
-							    <input name="excel" type="file" class="form-control-file" id="field_path2">
-							  </div>
-							<small>
-								Buscar citas.
-								<a href="https://youjustbetter.softwaremedilink.com/reportesdinamicos"
-									target="_blank">
-									 Descargar
-								</a>
-							</small>
-						</fieldset>
-
-						<button type="submit" class="mt-2 btn btn-primary btn-lg btn-block">Subir</button>
-					</form>
+						<a href="{{url('scraping-appointments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
         </div>

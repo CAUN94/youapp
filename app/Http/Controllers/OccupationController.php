@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class OccupationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function occupation($type,$fday = Null,$lday = Null)
     {
         if($fday != Null or $lday != Null){
