@@ -69,16 +69,19 @@ class HomeController extends Controller
     // Falta hacer refactoring
     public function general()
     {
-
         // $now = Carbon::now()->addMonth();
-        $now = Carbon::now()->subYear();
-        $endOfYear = $now->copy()->endOfYear();
-        $startOfYear = $now->copy()->startOfYear();
+        $last = Carbon::now()->subYear();
+        $endOfYear = $last->copy()->endOfYear();
+        $startOfYear = $last->copy()->startOfYear();
+
+        // return Action::occupation_summary($startOfYear,$endOfYear);
         $lastyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
                sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
         from actions
         where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
         group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
+
+        $conveniosLast =
 
         $now = Carbon::now();
         $endOfYear = $now->copy()->endOfYear();

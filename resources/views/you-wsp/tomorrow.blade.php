@@ -60,7 +60,6 @@
 @section('scripts')
 <script type="text/javascript">
     pacientes = {!! json_encode($pacientes, JSON_HEX_TAG) !!}
-    console.log(pacientes)
 </script>
 <script src="{{ asset('js/tomorrow/tomorrow.js')}}"></script>
 @stop
