@@ -87,18 +87,10 @@
                         </a>
                         <a class="collapse-item" href="{{ route('canceled') }}">
                             <i class="fas fa-window-close"></i>
-                            <span>Anulados</span>
+                            <span>Fugados</span>
                         </a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('medilink') }}">
-                    <i class="fas fa-file-excel"></i>
-                    <span>Importar</span>
-                </a>
             </li>
 
             <div class="sidebar-heading">
@@ -106,6 +98,10 @@
             </div>
 
             <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('general') }}">
+                    <i class="fas fa-file-contract"></i>
+                    <span>Reportes Anual</span>
+                </a>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-file-contract"></i>

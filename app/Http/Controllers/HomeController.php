@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\Appointment;
+use App\Payment;
+use App\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +31,9 @@ class HomeController extends Controller
     {
         $action_last = Action::last_register();
         $appointment_last = Appointment::last_register();
-        return view('home',compact('action_last','appointment_last'));
+        $treatment_last = Treatment::last_register();
+        $payment_last = Payment::last_register();
+        return view('home',compact('action_last','appointment_last','treatment_last','payment_last'));
     }
 
     public function panel()
@@ -68,6 +72,32 @@ class HomeController extends Controller
         $appointment_last = Appointment::last_register();
 
         return view('import',compact('action_last','appointment_last'));
+    }
+
+    public function general()
+    {
+
+        // $now = Carbon::now()->addMonth();
+        $now = Carbon::now()->subYear();
+        $endOfYear = $now->copy()->endOfYear();
+        $startOfYear = $now->copy()->startOfYear();
+        $lastyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
+               sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
+        from actions
+        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
+        group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
+
+        $now = Carbon::now();
+        $endOfYear = $now->copy()->endOfYear();
+        $startOfYear = $now->copy()->startOfYear();
+
+        $actualyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
+               sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
+        from actions
+        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
+        group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
+
+        return view('reports.index',compact('lastyear','actualyear'));
     }
 
 

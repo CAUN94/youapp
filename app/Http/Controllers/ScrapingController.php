@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\Appointment;
+use App\Payment;
+use App\Treatment;
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Http\Request;
@@ -123,5 +125,98 @@ class ScrapingController extends Controller
         $update->save();
 
 		return back()->with('message-actions', 'Actualizado');
+	}
+
+	public function treatments()
+	{
+		$client = new Client();
+		$crawler = $client->request('GET', 'https://youjustbetter.softwaremedilink.com/reportesdinamicos');
+		$form = $crawler->selectButton('Ingresar')->form();
+		$form->setValues(['rut' => 'admin', 'password' => 'Omnium123']);
+		$crawler = $client->submit($form);
+
+		$url = "https://youjustbetter.softwaremedilink.com/reportesdinamicos/reporte/resumen_tratamientos_saldos";
+		$crawler = $client->request('GET', $url);
+		$array = $crawler->text();
+		$array = substr($array,2,-2);
+		$split = explode('},{', $array);
+		foreach ($split as $string)
+		{
+			$jsonobj = "{".$string."}";
+			$value = json_decode($jsonobj,true);
+			if($value["Atencion"]>6000){
+				$treatment = new Treatment();
+				$treatment->Ficha = $value["# Ficha"];
+				$treatment->Nombre = $value["Nombre paciente"];
+				$treatment->Apellidos = $value["Apellidos paciente"];
+				$treatment->Atencion = $value["Atencion"];
+				$treatment->Profesional = $value["Profesional"];
+				$treatment->TotalAtencion = $value["Total Atencion"];
+				$treatment->TotalLaboratorios = $value["Total Laboratorios"];
+				$treatment->TotalRealizado = $value["Total Realizado"];
+				$treatment->TotalAbonado = $value["Total Abonado"];
+				$treatment->Avance = $value["Saldo por avance"];
+				$treatment->Global = $value["Saldo Global"];
+				$treatment->Proxima_cita = $value["Proxima cita"];
+				$treatment->save();
+			}
+		}
+		$Treatment = Treatment::noRepeats();
+        $TreatmentId = array_column($Treatment->toArray(), 'id');
+        Treatment::whereNotIn('id', $TreatmentId)->delete();
+        $update = Treatment::orderBy('id', 'desc')->first();
+        $update->updated_at = Carbon::now();
+        $update->save();
+		return back()->with('message-treatments', 'Actualizado');
+	}
+
+	public function payments()
+	{
+		$client = new Client();
+		$crawler = $client->request('GET', 'https://youjustbetter.softwaremedilink.com/reportesdinamicos');
+		$form = $crawler->selectButton('Ingresar')->form();
+		$form->setValues(['rut' => 'admin', 'password' => 'Omnium123']);
+		$crawler = $client->submit($form);
+
+		$url = "https://youjustbetter.softwaremedilink.com/reportesdinamicos/reporte/pagos_pacientes";
+		$crawler = $client->request('GET', $url);
+		$array = $crawler->text();
+		$array = substr($array,2,-2);
+		$split = explode('},{', $array);
+		foreach ($split as $string)
+		{
+			$jsonobj = "{".$string."}";
+			$value = json_decode($jsonobj,true);
+			$payment = New Payment;
+			$payment->Atencion = $value['Atencion'];
+			$payment->Profesional = $value['Profesional atencion'];
+			$payment->Especialidad = $value['Especialidad Profesional atencion'];
+			$payment->Pago_Nr = $value['# Pago'];
+			$payment->Fecha = $value['Fecha de recepción'];
+			$payment->Rut = $value['Rut paciente'];
+			$payment->Nombre = $value['Nombre'];
+			$payment->Apellidos = $value['Apellidos'];
+			$payment->Tipo_Paciente = $value['Tipo Paciente'];
+			$payment->Convenio = $value['Convenio'];
+			$payment->Convenio_Secundario = $value['Convenio Secundario'];
+			$payment->Boleta_Nr = $value['# Boleta'];
+			$payment->Total = $value['Total pago'];
+			$payment->Asociado = $value['Total asociado a atencion'];
+			$payment->Medio = $value['Medio de pago'];
+			$payment->Banco = $value['Banco'];
+			$payment->RutBanco = $value['Rut'];
+			$payment->Cheque = $value['# Ref Cheque'];
+			$payment->Vencimiento = $value['Vencimiento'];
+			$payment->Generado = $value['Generado'];
+			$payment->save();
+
+		}
+		$payment = payment::noRepeats();
+        $paymentId = array_column($payment->toArray(), 'id');
+        payment::whereNotIn('id', $paymentId)->delete();
+        $update = payment::orderBy('id', 'desc')->first();
+        $update->updated_at = Carbon::now();
+        $update->save();
+		return back()->with('message-payments', 'Actualizado');
 	}
 }

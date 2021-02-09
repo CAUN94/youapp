@@ -33,6 +33,12 @@
   --light: #f8f9fc;
   --dark: #5a5c69;
   --orangedark: #ec3413;
+  --brand_gray: #4e4e4e;
+  --brand_orange: #F37059;
+  --brand_dark_orange: #ec3413;
+  --brandh_gray: #424242;
+  --brandh_orange: #be5947;
+  --brandh_dark_orange: #a8250e;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -6434,6 +6440,16 @@ button.bg-danger:focus {
   background-color: #d52a1a !important;
 }
 
+.bg-orange {
+  background-color: #ec3413!important;
+}
+
+a.bg-orange:hover, a.bg-orange:focus,
+button.bg-orange:hover,
+button.bg-orange:focus {
+  background-color: #ec3413 !important;
+}
+
 .bg-light {
   background-color: #f8f9fc !important;
 }
@@ -9557,6 +9573,18 @@ button.bg-dark:focus {
 
 .text-primary {
   color: var(--orange) !important;
+}
+
+.text-gray {
+  color: var(--brand_gray) !important;
+}
+
+.text-orange {
+  color: var(--brand_orange) !important;
+}
+
+.text-dark-orange {
+  color: var(--brand_dark_orange) !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {

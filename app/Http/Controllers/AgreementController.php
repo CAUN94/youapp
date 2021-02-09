@@ -12,7 +12,7 @@ class AgreementController extends Controller
         $this->middleware('auth');
     }
 
-    public function history()
+    public function history($type = Null,$fday = Null,$lday = Null)
     {
     	return Action::agreementHistory();
     }

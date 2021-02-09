@@ -5,11 +5,96 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{$title}}</h1>
+
         <a href="{{ route('excel-download', ['type' => $type]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-download fa-sm text-white-50"></i> Descargar Reporte</a>
     </div>
 
-    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Prestaciones</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $summary['Prestación'] }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Abono</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$summary['Abono']}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Meta de atenciones: <b>{{ $goal }}</b>
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $percentage }}%</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-primary" role="progressbar"
+                                            style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0"
+                                            aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Atenciones</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $summary['Atenciones'] }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
 
@@ -17,7 +102,7 @@
         <div class="col-xl-9 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Pacientes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Resumen</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -50,12 +135,37 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <!-- Estimad@ Nombre de Paciente: -->
-                    @foreach ($summary as $key => $value)
-                        <li>{{ $key }}: {{ $value }}</li>
-                    @endforeach
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                    <div class="mt-4">
+                        <span class="my-2 d-block">
+                            <i class="fas fa-circle text-gray"></i> Con Convenio
+                        </span>
+                        <span class="my-2 d-block">
+                            <i class="fas fa-circle text-orange"></i> Sin Convenio
+                        </span>
+                        <span class="my-2 d-block">
+                            <i class="fas fa-circle text-dark-orange"></i> Embajadores
+                        </span>
+                    </div>
                 </div>
             </div>
+{{--             <div class="card shadow mb-4">
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                    <li style="list-style: none;"><i class="fas fa-circle text-primary"></i> Con Convenio</li>
+                    <li style="list-style: none;"><i class="fas fa-circle text-success"></i> Sin Convenio</li>
+                    <li style="list-style: none;"><i class="fas fa-circle text-info"></i> Embajador</li>
+                </div>
+            </div> --}}
+
         </div>
     </div>
 
@@ -67,5 +177,10 @@
 <script type="text/javascript">
     actions = {!! json_encode($actions, JSON_HEX_TAG) !!}
 </script>
+<script type="text/javascript">
+    summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
+</script>
 <script type="text/javascript" src="{{ asset('js/occupations.js')}}"></script>
+<script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/charts/pie.js')}}"></script>
 @stop

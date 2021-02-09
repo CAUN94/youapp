@@ -42,16 +42,25 @@ class Action extends Model
     	$action = new Action;
         $firstday = Carbon::create(null, date('m') - 1, 21, 00, 00, 01);
         $lastday = Carbon::create(null, null, 20, 23, 55, 55);
-        return $action->occupation($firstday,$lastday);
+        $diff = 4;
+        return [
+            'actions' => $action->occupation($firstday,$lastday),
+            'weeks' => $diff
+        ];
 
     }
 
     public static function last_week()
     {
     	$action = new Action;
-    	$monday = Carbon::create(null,null,null,0,0,1)->subWeek()->startOfWeek();
-        $friday = Carbon::create(null,null,null,23,55,55)->subWeek()->startOfWeek()->addDay(6);
-        return $action->occupation($monday,$friday);
+    	$firstday = Carbon::create(null,null,null,0,0,1)->subWeek()->startOfWeek();
+        $lastday = Carbon::create(null,null,null,23,55,55)->subWeek()->startOfWeek()->addDay(6);
+        $diff = 1;
+        return [
+            'actions' => $action->occupation($firstday,$lastday),
+            'weeks' => $diff
+        ];
+
     }
 
     public static function month()
@@ -59,7 +68,11 @@ class Action extends Model
     	$action = new Action;
     	$firstday = Carbon::now()->firstOfMonth();
         $lastday = Carbon::now()->lastOfMonth();
-        return $action->occupation($firstday,$lastday);
+        $diff = 4;
+        return [
+            'actions' => $action->occupation($firstday,$lastday),
+            'weeks' => $diff
+        ];
     }
 
     public static function noRepeats()

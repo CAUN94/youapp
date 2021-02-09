@@ -20,17 +20,16 @@ class OccupationController extends Controller
             return redirect('/');
         }
         if($type == "close"){
-            $actions = Action::close_month();
-
+            $array = Action::close_month();
             $title = "Mes Cerrado del 21/".(date('m')-1)." al 20/".date('m');
         }
         elseif ($type == "last-week") {
-            $actions = Action::last_week();
+            $array = Action::last_week();
             $monday = date('d-m',strtotime("Monday last week"));
             $title = "Semana Vencida de Lunes a Domingo de la Semana del ".$monday;
         }
         elseif ($type == "month") {
-            $actions = Action::month();
+            $array = Action::month();
             $firstday = date('d-m',strtotime("first day of this month"));
             $title = "Mes Actual desde el ".$firstday;
         }
@@ -38,10 +37,13 @@ class OccupationController extends Controller
             return redirect('/');
         }
 
+        $actions = $array['actions'];
+        $goal = $array['weeks']*75;
+
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);
-
-        return view('occupations.show',compact('actions','title','summary','type'));
+        $percentage = round($summary['Atenciones']*100/$goal,1);
+        return view('occupations.show',compact('actions','title','summary','type','percentage','goal'));
     }
 
     public function summary($actions,$values)
@@ -51,6 +53,23 @@ class OccupationController extends Controller
             $value_new = array_sum(array_column($actions, $value));
             $summary[$value] = $value_new;
         }
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
         return $summary;
+    }
+
+    public function moneda_chilena($numero){
+        $numero = (string)$numero;
+        $puntos = floor((strlen($numero)-1)/3);
+        $tmp = "";
+        $pos = 1;
+        for($i=strlen($numero)-1; $i>=0; $i--){
+        $tmp = $tmp.substr($numero, $i, 1);
+        if($pos%3==0 && $pos!=strlen($numero))
+        $tmp = $tmp.".";
+        $pos = $pos + 1;
+        }
+        $formateado = "$ ".strrev($tmp);
+        return $formateado;
     }
 }

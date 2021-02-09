@@ -16,14 +16,18 @@ class ProfessionalController extends Controller
     {
     	$actions = Action::professionalsCloseMonth();
     	$summary = $this->summary($actions);
-    	return view('professionals.index',compact('actions','summary'));
+        $goal = 300;
+        $percentage = round($summary['Total']*100/$goal,1);
+    	return view('professionals.index',compact('actions','summary','goal','percentage'));
     }
 
     public function show($name)
     {
     	$actions = Action::professionalCloseMonth($name);
     	$summary = $this->summary($actions);
-    	return view('professionals.show',compact('actions','summary','name'));
+        $goal = 300;
+        $percentage = round($summary['Total']*100/$goal,1);
+    	return view('professionals.show',compact('actions','summary','name','goal','percentage'));
     }
 
     public function summary($actions)
@@ -51,6 +55,23 @@ class ProfessionalController extends Controller
 	        $summary['Prestación'] += $action->Prestación;
 	        $summary['Abono'] += $action->Abono;
         }
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
         return $summary;
+    }
+
+    public function moneda_chilena($numero){
+        $numero = (string)$numero;
+        $puntos = floor((strlen($numero)-1)/3);
+        $tmp = "";
+        $pos = 1;
+        for($i=strlen($numero)-1; $i>=0; $i--){
+        $tmp = $tmp.substr($numero, $i, 1);
+        if($pos%3==0 && $pos!=strlen($numero))
+        $tmp = $tmp.".";
+        $pos = $pos + 1;
+        }
+        $formateado = "$ ".strrev($tmp);
+        return $formateado;
     }
 }

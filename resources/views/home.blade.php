@@ -24,6 +24,8 @@
                         <ul>
                         	<li>Actions: {{$action_last}}</li>
                         	<li>Appointments: {{$appointment_last}}</li>
+                            <li>Treatment: {{$treatment_last}}</li>
+                            <li>Payment: {{$payment_last}}</li>
                         </ul>
                 </div>
             </div>
@@ -44,6 +46,21 @@
                         <a href="{{url('scraping-actions')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
+
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Treatments</h6>
+                    @if(session()->has('message-treatments'))
+                        <small>{{ session()->get('message-treatments') }}</small>
+                    @endif
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                        <a href="{{url('scraping-treatments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
+                </div>
+            </div>
         </div>
 
         <div class="col-xl-4 col-lg-5">
@@ -59,6 +76,20 @@
                 <!-- Card Body -->
                 <div class="card-body">
 						<a href="{{url('scraping-appointments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Payments</h6>
+                    @if(session()->has('message-payments'))
+                        <small>{{ session()->get('message-payments') }}</small>
+                    @endif
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                        <a href="{{url('scraping-payments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
         </div>
