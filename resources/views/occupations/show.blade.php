@@ -139,14 +139,14 @@
                         <canvas id="myPieChart"></canvas>
                     </div>
                     <div class="mt-4">
-                        <span class="my-2 d-block">
-                            <i class="fas fa-circle text-gray"></i> Con Convenio
+                        <span class="my-2 d-block text-gray">
+                            <i class="fas fa-circle "></i> Con Convenio
                         </span>
-                        <span class="my-2 d-block">
-                            <i class="fas fa-circle text-orange"></i> Sin Convenio
+                        <span class="my-2 d-block text-orange">
+                            <i class="fas fa-circle "></i> Sin Convenio
                         </span>
-                        <span class="my-2 d-block">
-                            <i class="fas fa-circle text-dark-orange"></i> Embajadores
+                        <span class="my-2 d-block text-dark-orange">
+                            <i class="fas fa-circle "></i> Embajadores
                         </span>
                     </div>
                 </div>
