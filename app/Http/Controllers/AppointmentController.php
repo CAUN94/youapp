@@ -14,65 +14,10 @@ class AppointmentController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $data = Excel::toArray(new AppointmentImport(), $request->file('excel'));
 
-        foreach ($data[0] as $key => $value) {
-            // return var_dump($value);
-            $appointment = new Appointment();
-            $appointment->Estado = $value['estado'];
-            $appointment->Fecha = $value['fecha'];
-            $appointment->Hora_inicio = $value['hora_inicio'];
-            $appointment->Hora_termino = $value['hora_termino'];
-            $appointment->Fecha_Generación = $value['fecha_generacion'];
-            $appointment->Tratamiento_Nr = $value['atencion'];
-            $appointment->Profesional = $value['profesionalrecurso'];
-            $appointment->Rut_Paciente = $value['rut_paciente'];
-            $appointment->Nombre_paciente = $value['nombre_paciente'];
-            $appointment->Apellidos_paciente = $value['apellidos_paciente'];
-            $appointment->Mail = $value['e_mail'];
-            $appointment->Telefono = $value['telefono'];
-            $appointment->Celular = $value['celular'];
-            $appointment->Convenio = $value['convenio'];
-            $appointment->Convenio_Secundario = $value['convenio_secundario'];
-            $appointment->Generación_Presupuesto = $value['generacion_presupuesto'];
-            $appointment->Sucursal = $value['sucursal'];
-            $appointment->save();;
-        }
-        $Action = Appointment::noRepeat();
-        $ActionId = array_column($Action ->toArray(), 'id');
-        Appointment::whereNotIn('id', $ActionId)->delete();
-        $update = Appointment::orderBy('id', 'desc')->first();
-        $update->updated_at = Carbon::now();
-        $update->save();
-        return back()->with('message-appointments', 'Actualizado');
     }
 
     /**

@@ -139,14 +139,14 @@
                         <canvas id="myPieChart"></canvas>
                     </div>
                     <div class="mt-4">
-                        <span class="my-2 d-block">
-                            <i class="fas fa-circle text-gray"></i> Con Convenio
+                        <span class="my-2 d-block text-gray">
+                            <i class="fas fa-circle "></i> Con Convenio
                         </span>
-                        <span class="my-2 d-block">
-                            <i class="fas fa-circle text-orange"></i> Sin Convenio
+                        <span class="my-2 d-block text-orange">
+                            <i class="fas fa-circle "></i> Sin Convenio
                         </span>
-                        <span class="my-2 d-block">
-                            <i class="fas fa-circle text-dark-orange"></i> Embajadores
+                        <span class="my-2 d-block text-dark-orange">
+                            <i class="fas fa-circle "></i> Embajadores
                         </span>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
 <script type="text/javascript">
     summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
 </script>
-<script type="text/javascript" src="{{ asset('js/professionals.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/professional/professionals.js')}}"></script>
 <script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/pie.js')}}"></script>
 @stop

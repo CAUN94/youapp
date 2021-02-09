@@ -66,5 +66,5 @@
 <script type="text/javascript">
     pacientes = {!! json_encode($pacientes->toArray(), JSON_HEX_TAG) !!}
 </script>
-<script type="text/javascript" src="{{ asset('js/table.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/table/table.js')}}"></script>
 @stop

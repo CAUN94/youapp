@@ -64,5 +64,5 @@
 @stop
 
 @section('scripts')
-    <script src="{{ asset('js/training.js')}}"></script>
+    <script src="{{ asset('js/training/training.js')}}"></script>
 @stop

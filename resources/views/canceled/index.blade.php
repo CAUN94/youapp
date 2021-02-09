@@ -50,5 +50,5 @@
 <script type="text/javascript">
     canceled = {!! json_encode($canceled, JSON_HEX_TAG) !!}
 </script>
-<script type="text/javascript" src="{{ asset('js/canceled.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/canceled/canceled.js')}}"></script>
 @stop

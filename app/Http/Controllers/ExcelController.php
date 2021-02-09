@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Exports\CloseExport;
 use App\Exports\LastWeekExport;
 use App\Exports\MonthExport;
-use App\Exports\ProfessionalExport;
 use App\Exports\ProfessionalsExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

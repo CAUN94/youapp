@@ -163,7 +163,7 @@
 <script type="text/javascript">
     summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
 </script>
-<script type="text/javascript" src="{{ asset('js/professionals.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/professional/professionals.js')}}"></script>
 <script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/pie.js')}}"></script>
 @stop

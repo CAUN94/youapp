@@ -66,14 +66,7 @@ class HomeController extends Controller
         return view('you-wsp/training');
     }
 
-    public function medilink()
-    {
-        $action_last = Action::last_register();
-        $appointment_last = Appointment::last_register();
-
-        return view('import',compact('action_last','appointment_last'));
-    }
-
+    // Falta hacer refactoring
     public function general()
     {
 
