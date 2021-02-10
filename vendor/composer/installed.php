@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'b1a0b1730b05d6c17915ba8c123b4ffea1be96b2',
+    'reference' => '55b75f0a223d42f9d2fa237ab768c2ee5edb371e',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -449,7 +449,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'b1a0b1730b05d6c17915ba8c123b4ffea1be96b2',
+      'reference' => '55b75f0a223d42f9d2fa237ab768c2ee5edb371e',
     ),
     'laravel/tinker' => 
     array (
@@ -1266,8 +1266,8 @@
     ),
     'symfony/process' => 
     array (
-      'pretty_version' => 'v5.2.2',
-      'version' => '5.2.2.0',
+      'pretty_version' => 'v5.2.3',
+      'version' => '5.2.3.0',
       'aliases' => 
       array (
       ),

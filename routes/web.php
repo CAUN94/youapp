@@ -17,6 +17,9 @@ Route::get('/excel/ocuppation/{type}', 'ExcelController@occupation')->name('exce
 Route::get('/excel/professional', 'ExcelController@professionals')->name('excel-professionals');
 Route::get('/excel/professional/{name}', 'ExcelController@professional')->name('excel-professional');
 
+Route::get('/fintoc', 'FintocController@index')->name('fintoc');
+Route::get('/transfers', 'TransfersController@index')->name('transfers');
+
 // No view
 Route::get('/agreement/history', 'AgreementController@history')->name('agreement-history');
 
