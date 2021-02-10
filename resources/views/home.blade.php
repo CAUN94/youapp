@@ -26,6 +26,7 @@
                         	<li>Appointments: {{$appointment_last}}</li>
                             <li>Treatment: {{$treatment_last}}</li>
                             <li>Payment: {{$payment_last}}</li>
+                            <li>Fintoc: {{$fintoc_last}}</li>
                         </ul>
                 </div>
             </div>
@@ -59,6 +60,21 @@
                 <!-- Card Body -->
                 <div class="card-body">
                         <a href="{{url('scraping-treatments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Fintoc</h6>
+                    @if(session()->has('message-transfers'))
+                        <small>{{ session()->get('message-transfers') }}</small>
+                    @endif
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                        <a href="{{url('transfers')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
         </div>

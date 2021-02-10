@@ -18,7 +18,7 @@ class TransfersController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $since = Carbon::create(2018,8,1);
+        $since = Carbon::create(Transfer::last_transfer())->subMonth();
         $until = $since->copy()->addMonth();
         $diff = $now->diffInMonths($since);
         $transfers = [];
@@ -45,32 +45,52 @@ class TransfersController extends Controller
             $transfer->date = $value['post_date'];
             $transfer->transaction_date = $value['transaction_date'];
             $transfer->type = $value['type'];
-            $transfer->recipient_account = $value['recipient_account'];
-            if (!is_null($value['sender_account'])){
-                $sender = $value['sender_account'];
-                $transfer->rut = $this->rut($sender['holder_id']);
-                $transfer->holder_name = $sender['holder_name'];
-                $transfer->account_number = $sender['number'];
-                if(!is_null($sender['institution'])){
-                    $institution = $sender['institution'];
-                    $transfer->bank_name = $institution['name'];
+            if (!is_null($value['recipient_account'])){
+                $transfer->recipient_rut = $this->rut($value['recipient_account']['holder_id']);
+                $transfer->recipient_holder_name = $value['recipient_account']['holder_name'];
+                $transfer->recipient_account_number = $value['recipient_account']['number'];
+                if(!is_null($value['recipient_account']['institution'])){
+                    $transfer->recipient_bank_name = $value['recipient_account']['institution']['name'];
                 }
                 else {
-                    $transfer->bank_name = Null;
+                    $transfer->recipient_bank_name = Null;
                 }
             }
             else {
-                $transfer->rut = Null;
-                $transfer->holder_name = Null;
-                $transfer->account_number = Null;
+                $transfer->recipient_rut = Null;
+                $transfer->recipient_holder_name = Null;
+                $transfer->recipient_account_number = Null;
+            }
+            if (!is_null($value['sender_account'])){
+                $transfer->sender_rut = $this->rut($value['sender_account']['holder_id']);
+                $transfer->sender_holder_name = $value['sender_account']['holder_name'];
+                $transfer->sender_account_number = $value['sender_account']['number'];
+                if(!is_null($value['sender_account']['institution'])){
+                    $transfer->sender_bank_name = $value['sender_account']['institution']['name'];
+                }
+                else {
+                    $transfer->sender_bank_name = Null;
+                }
+            }
+            else {
+                $transfer->sender_rut = Null;
+                $transfer->sender_holder_name = Null;
+                $transfer->sender_account_number = Null;
             }
             $transfer->comment = $value['comment'];
-            echo "....<br>";
-            var_dump($transfer);
+            // echo "....<br>";
+            // var_dump($transfer);
             $transfer->save();
         }
 
-        return redirect('/');
+        $Transfer = Transfer::noRepeat();
+        $TransferId = array_column($Transfer ->toArray(), 'id');
+        Transfer::whereNotIn('id', $TransferId)->delete();
+        $update = Transfer::orderBy('id', 'desc')->first();
+        $update->updated_at = Carbon::now();
+        $update->save();
+
+        return back()->with('message-transfers', 'Actualizado');
     }
 
     public function rut($r)

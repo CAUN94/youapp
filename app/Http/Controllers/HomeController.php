@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Action;
 use App\Appointment;
 use App\Payment;
+use App\Transfer;
 use App\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class HomeController extends Controller
         $appointment_last = Appointment::last_register();
         $treatment_last = Treatment::last_register();
         $payment_last = Payment::last_register();
-        return view('home',compact('action_last','appointment_last','treatment_last','payment_last'));
+        $fintoc_last = Transfer::last_register();
+        return view('home',compact('action_last','appointment_last','treatment_last','payment_last','fintoc_last'));
     }
 
     public function panel()
