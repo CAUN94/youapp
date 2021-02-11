@@ -167,17 +167,13 @@
                             <canvas id="Categorias"></canvas>
                         </div>
                         <div class="mt-4">
+                            <?php $r = 243?>
                             @foreach($categories as $category)
-                                <span class="my-2 d-block text-gray">
+                                <span class="my-2 d-block text-gray" style="color: rgb({{$r}}, 112, 89) !important">
                                     <i class="fas fa-circle "></i> {{$category->Categoria}}
                                 </span>
+                            <?php $r = $r - 30 ?>
                             @endforeach
- {{--                            <span class="my-2 d-block text-orange">
-                                <i class="fas fa-circle "></i> Sin Convenio
-                            </span>
-                            <span class="my-2 d-block text-dark-orange">
-                                <i class="fas fa-circle "></i> Embajadores
-                            </span> --}}
                         </div>
                     </div>
                 </div>
@@ -201,9 +197,10 @@
     summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
 </script>
 <script type="text/javascript">
-    category = {!! json_encode($category, JSON_HEX_TAG) !!}
+    categories = {!! json_encode($categories, JSON_HEX_TAG) !!}
 </script>
 <script type="text/javascript" src="{{ asset('js/ocuppation/occupations.js')}}"></script>
 <script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/pie.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/charts/pie-categories.js')}}"></script>
 @stop

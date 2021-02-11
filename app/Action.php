@@ -47,7 +47,7 @@ class Action extends Model
         return DB::select( DB::raw("select Query.Categoria_Nombre as Categoria,count(Query.Tratamiento_Nr) as Cantidad from
             (select Categoria_Nombre,Tratamiento_nr from actions
             where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'
-            group by 2) as Query group by 1;") );
+            group by 2) as Query group by 1 order by Cantidad desc;") );
     }
 
     public static function close_month()

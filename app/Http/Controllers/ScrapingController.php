@@ -183,32 +183,37 @@ class ScrapingController extends Controller
 		$array = $crawler->text();
 		$array = substr($array,2,-2);
 		$split = explode('},{', $array);
+
+		$date = Carbon::create(null, null, null)->subMonth()->subMonth()->format('Y-m-d');
+
 		foreach ($split as $string)
 		{
 			$jsonobj = "{".$string."}";
 			$value = json_decode($jsonobj,true);
 			$payment = New Payment;
-			$payment->Atencion = $value['Atencion'];
-			$payment->Profesional = $value['Profesional atencion'];
-			$payment->Especialidad = $value['Especialidad Profesional atencion'];
-			$payment->Pago_Nr = $value['# Pago'];
-			$payment->Fecha = $value['Fecha de recepción'];
-			$payment->Rut = $value['Rut paciente'];
-			$payment->Nombre = $value['Nombre'];
-			$payment->Apellidos = $value['Apellidos'];
-			$payment->Tipo_Paciente = $value['Tipo Paciente'];
-			$payment->Convenio = $value['Convenio'];
-			$payment->Convenio_Secundario = $value['Convenio Secundario'];
-			$payment->Boleta_Nr = $value['# Boleta'];
-			$payment->Total = $value['Total pago'];
-			$payment->Asociado = $value['Total asociado a atencion'];
-			$payment->Medio = $value['Medio de pago'];
-			$payment->Banco = $value['Banco'];
-			$payment->RutBanco = $value['Rut'];
-			$payment->Cheque = $value['# Ref Cheque'];
-			$payment->Vencimiento = $value['Vencimiento'];
-			$payment->Generado = $value['Generado'];
-			$payment->save();
+			if($value['Fecha de recepción'] >= $date){
+				$payment->Atencion = $value['Atencion'];
+				$payment->Profesional = $value['Profesional atencion'];
+				$payment->Especialidad = $value['Especialidad Profesional atencion'];
+				$payment->Pago_Nr = $value['# Pago'];
+				$payment->Fecha = $value['Fecha de recepción'];
+				$payment->Rut = $value['Rut paciente'];
+				$payment->Nombre = $value['Nombre'];
+				$payment->Apellidos = $value['Apellidos'];
+				$payment->Tipo_Paciente = $value['Tipo Paciente'];
+				$payment->Convenio = $value['Convenio'];
+				$payment->Convenio_Secundario = $value['Convenio Secundario'];
+				$payment->Boleta_Nr = $value['# Boleta'];
+				$payment->Total = $value['Total pago'];
+				$payment->Asociado = $value['Total asociado a atencion'];
+				$payment->Medio = $value['Medio de pago'];
+				$payment->Banco = $value['Banco'];
+				$payment->RutBanco = $value['Rut'];
+				$payment->Cheque = $value['# Ref Cheque'];
+				$payment->Vencimiento = $value['Vencimiento'];
+				$payment->Generado = $value['Generado'];
+				$payment->save();
+			}
 
 		}
 		$payment = payment::noRepeats();

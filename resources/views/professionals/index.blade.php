@@ -129,25 +129,26 @@
         <div class="col-xl-3 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <a href="#collapseResumen" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseResumen">
                     <h6 class="m-0 font-weight-bold text-primary">Resumen</h6>
-                </div>
+                </a>
                 <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4">
-                        <span class="my-2 d-block text-gray">
-                            <i class="fas fa-circle "></i> Con Convenio
-                        </span>
-                        <span class="my-2 d-block text-orange">
-                            <i class="fas fa-circle "></i> Sin Convenio
-                        </span>
-                        <span class="my-2 d-block text-dark-orange">
-                            <i class="fas fa-circle "></i> Embajadores
-                        </span>
+                <div class="collapse show" id="collapseResumen">
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            <span class="my-2 d-block text-gray">
+                                <i class="fas fa-circle "></i> Con Convenio
+                            </span>
+                            <span class="my-2 d-block text-orange">
+                                <i class="fas fa-circle "></i> Sin Convenio
+                            </span>
+                            <span class="my-2 d-block text-dark-orange">
+                                <i class="fas fa-circle "></i> Embajadores
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
