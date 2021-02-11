@@ -129,42 +129,59 @@
         <div class="col-xl-3 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Totales</h6>
-                </div>
+                <a href="#collapseCita" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCita">
+                    <h6 class="m-0 font-weight-bold text-primary">Tipo de Atenciones</h6>
+                </a>
+
                 <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4">
-                        <span class="my-2 d-block text-gray">
-                            <i class="fas fa-circle "></i> Con Convenio
-                        </span>
-                        <span class="my-2 d-block text-orange">
-                            <i class="fas fa-circle "></i> Sin Convenio
-                        </span>
-                        <span class="my-2 d-block text-dark-orange">
-                            <i class="fas fa-circle "></i> Embajadores
-                        </span>
+                <div class="collapse show" id="collapseCita">
+                    <div class="card-body">
+
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            <span class="my-2 d-block text-gray">
+                                <i class="fas fa-circle "></i> Con Convenio
+                            </span>
+                            <span class="my-2 d-block text-orange">
+                                <i class="fas fa-circle "></i> Sin Convenio
+                            </span>
+                            <span class="my-2 d-block text-dark-orange">
+                                <i class="fas fa-circle "></i> Embajadores
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-{{--             <div class="card shadow mb-4">
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <a href="#collapseCategoria" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCategoria">
+                    <h6 class="m-0 font-weight-bold text-primary">Categorias</h6>
+                </a>
+                <!-- Card Body -->
+
+                <div class="collapse show" id="collapseCategoria">
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="Categorias"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            @foreach($categories as $category)
+                                <span class="my-2 d-block text-gray">
+                                    <i class="fas fa-circle "></i> {{$category->Categoria}}
+                                </span>
+                            @endforeach
+ {{--                            <span class="my-2 d-block text-orange">
+                                <i class="fas fa-circle "></i> Sin Convenio
+                            </span>
+                            <span class="my-2 d-block text-dark-orange">
+                                <i class="fas fa-circle "></i> Embajadores
+                            </span> --}}
+                        </div>
                     </div>
-                    <li style="list-style: none;"><i class="fas fa-circle text-primary"></i> Con Convenio</li>
-                    <li style="list-style: none;"><i class="fas fa-circle text-success"></i> Sin Convenio</li>
-                    <li style="list-style: none;"><i class="fas fa-circle text-info"></i> Embajador</li>
                 </div>
-            </div> --}}
+            </div>
 
         </div>
     </div>
@@ -179,6 +196,12 @@
 </script>
 <script type="text/javascript">
     summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
+</script>
+<script type="text/javascript">
+    summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
+</script>
+<script type="text/javascript">
+    category = {!! json_encode($category, JSON_HEX_TAG) !!}
 </script>
 <script type="text/javascript" src="{{ asset('js/ocuppation/occupations.js')}}"></script>
 <script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>

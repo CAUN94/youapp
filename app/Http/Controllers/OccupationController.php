@@ -39,11 +39,12 @@ class OccupationController extends Controller
 
         $actions = $array['actions'];
         $goal = $array['weeks']*75;
+        $categories = $array['categories'];
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);
         $percentage = round($summary['Atenciones']*100/$goal,1);
-        return view('occupations.show',compact('actions','title','summary','type','percentage','goal'));
+        return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
     }
 
     public function summary($actions,$values)

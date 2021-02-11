@@ -27,40 +27,69 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-function area(prestacion,abono,name){
+function area(atenciones,convenio,sinconvenio,embajador,name){
   var ctx = document.getElementById(name);
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
       datasets: [{
-        label: "Prestacion",
+        label: "Atenciones",
         lineTension: 0.3,
-        backgroundColor: "rgba(78, 115, 223, 0.05)",
-        borderColor: "rgba(78, 115, 223, 1)",
+        backgroundColor: "rgba(2, 117, 216, 0.05)",
+        borderColor: "rgba(2, 117, 216, 1)",
         pointRadius: 3,
-        pointBackgroundColor: "rgba(78, 115, 223, 1)",
-        pointBorderColor: "rgba(78, 115, 223, 1)",
+        pointBackgroundColor: "rgba(2, 117, 216, 1)",
+        pointBorderColor: "rgba(2, 117, 216, 1)",
         pointHoverRadius: 3,
-        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+        pointHoverBackgroundColor: "rgba(2, 117, 216, 1)",
+        pointHoverBorderColor: "rgba(2, 117, 216, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: prestacion,
+        data: atenciones,
+      },
+      {
+        label: "Convenio",
+        lineTension: 0.3,
+        backgroundColor: "rgba(92, 184, 92, 0.05)",
+        borderColor: "rgba(92, 184, 92, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(92, 184, 92, 1)",
+        pointBorderColor: "rgba(92, 184, 92, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(92, 184, 92, 1)",
+        pointHoverBorderColor: "rgba(92, 184, 92, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: convenio,
       },{
-        label: "Abono",
+        label: "Sin Convenio",
         lineTension: 0.3,
-        backgroundColor: "rgba(236, 52, 19, 0.05)",
-        borderColor: "#a8250e",
+        backgroundColor: "rgba(240, 173, 78, 0.05)",
+        borderColor: "rgba(240, 173, 78,1)",
         pointRadius: 3,
-        pointBackgroundColor: "#a8250e",
-        pointBorderColor: "#a8250e",
+        pointBackgroundColor: "rgba(240, 173, 78,1)",
+        pointBorderColor: "rgba(240, 173, 78,1)",
         pointHoverRadius: 3,
-        pointHoverBackgroundColor: "#a8250e",
-        pointHoverBorderColor: "#a8250e",
+        pointHoverBackgroundColor: "rgba(240, 173, 78,1)",
+        pointHoverBorderColor: "rgba(240, 173, 78,1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: abono,
+        data: sinconvenio,
+      },{
+        label: "Embajador",
+        lineTension: 0.3,
+        backgroundColor: "rgba(217, 83, 79, 0.05)",
+        borderColor: "rgba(217, 83, 79, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(217, 83, 79, 1)",
+        pointBorderColor: "rgba(217, 83, 79, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(217, 83, 79, 1)",
+        pointHoverBorderColor: "rgba(217, 83, 79, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: embajador,
       }
       ],
     },
@@ -77,12 +106,6 @@ function area(prestacion,abono,name){
       scales: {
         xAxes: [{
           display: true,
-          ticks: {
-            callback: function(dataLabel, index) {
-              // Hide the label of every 2nd dataset. return null to hide the grid line too
-              return index % 2 === 0 ? dataLabel : '';
-            }
-          },
           time: {
             unit: 'date'
           },
@@ -99,9 +122,7 @@ function area(prestacion,abono,name){
             maxTicksLimit: 5,
             padding: 10,
             // Include a dollar sign in the ticks
-            callback: function(value, index, values) {
-              return '$' + number_format(value);
-            }
+
           },
           gridLines: {
             color: "rgb(234, 236, 244)",
@@ -129,33 +150,37 @@ function area(prestacion,abono,name){
         intersect: false,
         mode: 'index',
         caretPadding: 10,
-        callbacks: {
-          label: function(tooltipItem, chart) {
-            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-          }
-        }
+
       }
     }
   });
 }
 
-var prestacion = new Array(12).fill(0)
-var abono = new Array(12).fill(0)
+var atenciones = new Array(12).fill(0)
+var convenio = new Array(12).fill(0)
+var sinconvenio = new Array(12).fill(0)
+var embajador = new Array(12).fill(0)
 
-for (var i = 0; i < actualYear.length; i++) {
-  prestacion[i] = actualYear[i].Prestacion
-  abono[i] = actualYear[i].Abono
+for (var i = 0; i < conveniosActual.length; i++) {
+  atenciones[i] = conveniosActual[i].Atenciones
+  convenio[i] = conveniosActual[i].Convenio
+  sinconvenio[i] = conveniosActual[i].Sin_Convenio
+  embajador[i] = conveniosActual[i].Embajador
 }
 
-area(prestacion,abono,"actualyear")
+area(atenciones,convenio,sinconvenio,embajador,"conveniosActual")
 
-var prestacion = new Array(12).fill(0)
-var abono = new Array(12).fill(0)
+var atenciones = new Array(12).fill(0)
+var convenio = new Array(12).fill(0)
+var sinconvenio = new Array(12).fill(0)
+var embajador = new Array(12).fill(0)
 
-for (var i = 0; i < lastYear.length; i++) {
-  prestacion[i] = lastYear[i].Prestacion
-  abono[i] = lastYear[i].Abono
+for (var i = 0; i < conveniosLast.length; i++) {
+  atenciones[i] = conveniosLast[i].Atenciones
+  convenio[i] = conveniosLast[i].Convenio
+  sinconvenio[i] = conveniosLast[i].Sin_Convenio
+  embajador[i] = conveniosLast[i].Embajador
 }
 
-area(prestacion,abono,"lastyear")
+
+area(atenciones,convenio,sinconvenio,embajador,"conveniosLast")

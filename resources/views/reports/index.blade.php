@@ -49,7 +49,7 @@
                 <!-- Card Header - Dropdown -->
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Citas {{date('Y')}}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Atenciones {{date('Y')}}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -64,7 +64,7 @@
                 <!-- Card Header - Dropdown -->
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Citas {{date('Y')-1}}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Atenciones {{date('Y')-1}}</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -87,7 +87,15 @@
 <script type="text/javascript">
 	actualYear = {!! json_encode($actualyear, JSON_HEX_TAG) !!}
 </script>
+<script type="text/javascript">
+    conveniosLast = {!! json_encode($conveniosLast, JSON_HEX_TAG) !!}
+</script>
+<script type="text/javascript">
+    conveniosActual = {!! json_encode($conveniosActual, JSON_HEX_TAG) !!}
+</script>
+
 <script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/area_finance.js')}}"></script>
+<script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/area_appoiments.js')}}"></script>
 @stop

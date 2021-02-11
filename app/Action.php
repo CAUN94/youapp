@@ -34,13 +34,20 @@ class Action extends Model
 
     public static function occupation_summary($firstday,$lastday)
     {
-        return "select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;";
         return DB::select( DB::raw("select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
     }
 
     public function occupation($firstday,$lastday)
     {
     	return DB::select( DB::raw("select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
+    }
+
+    public function category($firstday,$lastday)
+    {
+        return DB::select( DB::raw("select Query.Categoria_Nombre as Categoria,count(Query.Tratamiento_Nr) as Cantidad from
+            (select Categoria_Nombre,Tratamiento_nr from actions
+            where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'
+            group by 2) as Query group by 1;") );
     }
 
     public static function close_month()
@@ -51,7 +58,8 @@ class Action extends Model
         $diff = 4;
         return [
             'actions' => $action->occupation($firstday,$lastday),
-            'weeks' => $diff
+            'weeks' => $diff,
+            'categories' => $action->category($firstday,$lastday),
         ];
 
     }
@@ -64,7 +72,8 @@ class Action extends Model
         $diff = 1;
         return [
             'actions' => $action->occupation($firstday,$lastday),
-            'weeks' => $diff
+            'weeks' => $diff,
+            'categories' => $action->category($firstday,$lastday),
         ];
 
     }
@@ -77,7 +86,8 @@ class Action extends Model
         $diff = 4;
         return [
             'actions' => $action->occupation($firstday,$lastday),
-            'weeks' => $diff
+            'weeks' => $diff,
+            'categories' => $action->category($firstday,$lastday),
         ];
     }
 
