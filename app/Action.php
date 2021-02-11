@@ -81,9 +81,9 @@ class Action extends Model
     public static function month()
     {
     	$action = new Action;
-    	$firstday = Carbon::now()->firstOfMonth();
-        $lastday = Carbon::now()->lastOfMonth();
-        $diff = 4;
+        $firstday = Carbon::create(null,null,null,0,0,1)->subWeek()->startOfWeek();
+        $lastday = Carbon::create(null,null,null,23,55,55)->subWeek()->startOfWeek()->addDay(6);
+        $diff = 1;
         return [
             'actions' => $action->occupation($firstday,$lastday),
             'weeks' => $diff,

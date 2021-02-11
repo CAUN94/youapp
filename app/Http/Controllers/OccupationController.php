@@ -14,32 +14,65 @@ class OccupationController extends Controller
         $this->middleware('auth');
     }
 
-    public function occupation($type,$fday = Null,$lday = Null)
+    public function occupation($type)
     {
-        if($fday != Null or $lday != Null){
-            return redirect('/');
+        $action = new Action();
+
+        if($type == "actual-month"){
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth();
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            $diff = 4;
+            $title = "Mes Actual del 21/".$firstday->month." al 20/".$lastday->month;
         }
-        if($type == "close"){
-            $array = Action::close_month();
-            $title = "Mes Cerrado del 21/".(date('m')-1)." al 20/".date('m');
+        elseif($type == "last-month"){
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth()->subMonth();
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55)->subMonth();
+            $diff = 4;
+            $title = "Mes Vencido del 21/".$firstday->month." al 20/".$lastday->month;
         }
         elseif ($type == "last-week") {
-            $array = Action::last_week();
-            $monday = date('d-m',strtotime("Monday last week"));
-            $title = "Semana Vencida de Lunes a Domingo de la Semana del ".$monday;
+            $firstday = Carbon::create(null,null,null,0,0,1)->subWeek()->startOfWeek();
+            $lastday = Carbon::create(null,null,null,23,55,55)->subWeek()->startOfWeek()->addDay(6);
+            $diff = 1;
+            $title = "Semana Vencida de Lunes a Domingo de la Semana del ".$firstday->day."/".$firstday->month."/".$firstday->year ;
         }
         elseif ($type == "month") {
-            $array = Action::month();
-            $firstday = date('d-m',strtotime("first day of this month"));
-            $title = "Mes Actual desde el ".$firstday;
+            $firstday = Carbon::create(null,null,null,0,0,1)->subWeek()->startOfWeek();
+            $lastday = Carbon::create(null,null,null,23,55,55)->subWeek()->startOfWeek()->addDay(6);
+            $diff = 1;
+            $title = "Mes Actual desde el ".$firstday->format('d-m-y');
         }
         else {
             return redirect('/');
         }
 
-        $actions = $array['actions'];
-        $goal = $array['weeks']*75;
-        $categories = $array['categories'];
+        $actions = $action->occupation($firstday,$lastday);
+        $goal = $diff*75;
+        $categories = $action->category($firstday,$lastday);
+
+        $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
+        $summary = $this->summary($actions,$values);
+        $percentage = round($summary['Atenciones']*100/$goal,1);
+        return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
+    }
+
+    public function form(Request $request){
+        $action = new Action();
+        if($request->firstday > $request->lastday){
+            return redirect('/');
+        }
+        $type = Null;
+        $firstday = Carbon::create($request->firstday);
+        $lastday = Carbon::create($request->lastday);
+        $diff = $firstday ->diffInWeeks($lastday);
+        if($diff == 0){
+            $diff = 0.75;
+        }
+        $title = "Ocupaciones del ".$request->firstday." al ".$request->lastday;
+
+        $actions = $action->occupation($firstday,$lastday);
+        $goal = $diff*75;
+        $categories = $action->category($firstday,$lastday);
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);

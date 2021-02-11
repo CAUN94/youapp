@@ -10,6 +10,8 @@ use App\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -40,6 +42,7 @@ class HomeController extends Controller
 
     public function panel()
     {
+        auth::user()->authorizeRoles(['admin']);
         $pacientes = DB::table('appointments')->groupBy('Rut_Paciente')->orderBy('Fecha_Generación','desc')->get();
         return view('you-wsp/index',compact('pacientes'));
     }

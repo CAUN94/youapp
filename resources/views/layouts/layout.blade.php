@@ -109,9 +109,13 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('occupation', ['type' => 'close']) }}">
+                        <a class="collapse-item" href="{{ route('occupation', ['type' => 'actual-month']) }}">
                             <i class="fas fa-table"></i>
-                            Cierre de Mes
+                            Mes Actual
+                        </a>
+                        <a class="collapse-item" href="{{ route('occupation', ['type' => 'last-month']) }}">
+                            <i class="fas fa-table"></i>
+                            Mes Vencido
                         </a>
                         <a class="collapse-item" href="{{ route('occupation', ['type' => 'last-week']) }}">
                             <i class="fas fa-table"></i>
@@ -119,8 +123,16 @@
                         </a>
                         <a class="collapse-item" href="{{ route('occupation', ['type' => 'month']) }}">
                             <i class="fas fa-table"></i>
-                            Mes Actual
+                            Mes Calendario Actual
                         </a>
+                        <hr>
+                        <h6 class="collapse-header">Personalizado</h6>
+                        <form class="side" method="POST" action="{{ route('form-occupation')}}">
+                            @csrf
+                            <input class="form-control" name="firstday" type="date">
+                            <input class="form-control" name="lastday" type="date">
+                            <input class="form-control" type="submit">
+                        </form>
                     </div>
                 </div>
             </li>
