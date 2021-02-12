@@ -1,15 +1,13 @@
 @extends('layouts.layout')
 
+
 @section('content')
 @section('container')
 <div class="container-fluid">
+    @if(auth::user()->hasrole('admin'))
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard You</h1>
-        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
     </div>
-
-    <!-- Content Row -->
 
     <div class="row">
     	<div class="col-xl-4 col-lg-5">
@@ -110,6 +108,11 @@
             </div>
         </div>
     </div>
+    @else
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Hola {{ auth::user()->name}}</h1>
+        </div>
+    @endif
 </div>
-@stop
+@endsection
 @endsection

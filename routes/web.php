@@ -34,6 +34,8 @@ Route::get('/professional/{name}', 'ProfessionalController@show')->name('profess
 
 Route::get('/occupation/{type}', 'OccupationController@occupation')->name('occupation');
 Route::post('/occupation', 'OccupationController@form')->name('form-occupation');
+Route::get('/occupation-professional/{type}', 'OccupationController@occupationprofessional')->name('occupation-professional');
+Route::post('/occupation-professional', 'OccupationController@formprofessional')->name('form-occupation-professional');
 
 Auth::routes();
 

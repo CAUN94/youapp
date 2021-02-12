@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfessionalController extends Controller
 {
@@ -14,20 +15,35 @@ class ProfessionalController extends Controller
 
     public function index()
     {
-    	$actions = Action::professionalsCloseMonth();
-    	$summary = $this->summary($actions);
-        $goal = 300;
-        $percentage = round($summary['Total']*100/$goal,1);
-    	return view('professionals.index',compact('actions','summary','goal','percentage'));
+        if(auth::user()->hasRole('admin')){
+            $actions = Action::professionalsCloseMonth();
+            $summary = $this->summary($actions);
+            $goal = 300;
+            $percentage = round($summary['Total']*100/$goal,1);
+            return view('professionals.index',compact('actions','summary','goal','percentage'));
+        }
     }
 
     public function show($name)
     {
-    	$actions = Action::professionalCloseMonth($name);
-    	$summary = $this->summary($actions);
-        $goal = 300;
-        $percentage = round($summary['Total']*100/$goal,1);
-    	return view('professionals.show',compact('actions','summary','name','goal','percentage'));
+        if(auth::user()->hasRole('admin')){
+            $actions = Action::professionalCloseMonth($name);
+            $summary = $this->summary($actions);
+            $goal = 300;
+            $percentage = round($summary['Total']*100/$goal,1);
+            return view('professionals.show',compact('actions','summary','name','goal','percentage'));
+        }
+        if(auth::user()->hasRole('professional')){
+            if(auth::user()->medilinkname != $name){
+                abort(401);
+            }
+            $actions = Action::professionalCloseMonth($name);
+            $summary = $this->summary($actions);
+            $goal = 300;
+            $percentage = round($summary['Total']*100/$goal,1);
+            return view('professionals.show',compact('actions','summary','name','goal','percentage'));
+        }
+
     }
 
     public function summary($actions)

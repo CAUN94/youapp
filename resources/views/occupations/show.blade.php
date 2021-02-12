@@ -3,9 +3,10 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{$title}}</h1>
-        @if($type != Null)
+        @if(auth::user()->hasRole('admin') and $type != Null)
         <a href="{{ route('excel-download', ['type' => $type]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-download fa-sm text-white-50"></i> Descargar Reporte</a>
         @endif
@@ -110,13 +111,21 @@
                         <table class="table table-bordered" id="occupationTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Profesional</th>
-                                    <th>Atenciones Totales</th>
-                                    <th>Con Convenio</th>
-                                    <th>Sin Convenio</th>
-                                    <th>Embajador</th>
-                                    <th>Prestación</th>
-                                    <th>Abono</th>
+                                    @if(auth::user()->hasRole('admin') and (Route::is('occupation') or Route::is('form-occupation')))
+                                        <th>Profesional</th>
+                                        <th>Atenciones Totales</th>
+                                        <th>Con Convenio</th>
+                                        <th>Sin Convenio</th>
+                                        <th>Embajador</th>
+                                        <th>Prestación</th>
+                                        <th>Abono</th>
+                                    @elseif(auth::user()->hasRole('professional') and (Route::is('occupation-professional')) or Route::is('form-occupation-professional'))
+                                        <th>Pacientes</th>
+                                        <th>Con Convenio</th>
+                                        <th>Sin Convenio</th>
+                                        <th>Embajador</th>
+                                        <th>Remuneración</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -124,6 +133,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Pie Chart -->
@@ -200,7 +210,12 @@
 <script type="text/javascript">
     categories = {!! json_encode($categories, JSON_HEX_TAG) !!}
 </script>
+@if(auth::user()->hasRole('admin') and (Route::is('occupation') or Route::is('form-occupation')))
 <script type="text/javascript" src="{{ asset('js/ocuppation/occupations.js')}}"></script>
+@elseif(auth::user()->hasRole('professional') and (Route::is('occupation-professional')) or Route::is('form-occupation-professional'))
+<script type="text/javascript" src="{{ asset('js/ocuppation/ocuppation_professional.js')}}"></script>
+@endif
+
 <script type="text/javascript" src="{{ asset('vendor/chart.js/Chart.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/pie.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/charts/pie-categories.js')}}"></script>

@@ -49,17 +49,20 @@ class HomeController extends Controller
 
     public function excel()
     {
+        auth::user()->authorizeRoles(['admin']);
         return view('you-wsp/excel');
     }
 
     public function canceled()
     {
+        auth::user()->authorizeRoles(['admin']);
         $canceled = Appointment::canceled();
         return view('canceled/index',compact('canceled'));
     }
 
     public function tomorrow()
     {
+        auth::user()->authorizeRoles(['admin']);
         $pacientes = Appointment::tomorrow_appoiments();
         $appointment_last = Appointment::last_register();
 
@@ -68,12 +71,14 @@ class HomeController extends Controller
 
     public function training()
     {
+        auth::user()->authorizeRoles(['admin']);
         return view('you-wsp/training');
     }
 
     // Falta hacer refactoring
     public function general()
     {
+        auth::user()->authorizeRoles(['admin']);
         // $now = Carbon::now()->addMonth();
         $last = Carbon::now()->subYear();
         $endOfYear = $last->copy()->endOfYear();

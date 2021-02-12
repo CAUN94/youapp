@@ -37,17 +37,30 @@ class Action extends Model
         return DB::select( DB::raw("select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
     }
 
-    public function occupation($firstday,$lastday)
+    public function occupation($firstday,$lastday,$professional = Null)
     {
-    	return DB::select( DB::raw("select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
+        if(is_null($professional)){
+            return DB::select( DB::raw("select  Query.Pro as Profesional,Query.P as Paciente,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
+        }
+        return DB::select( DB::raw("select  Query.P as Paciente,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query
+            where Query.Pro like '".$professional."'
+            group by Query.P,Query.T;") );
+
     }
 
-    public function category($firstday,$lastday)
+    public function category($firstday,$lastday,$professional = Null)
     {
+        if(is_null($professional)){
+            return DB::select( DB::raw("select Query.Categoria_Nombre as Categoria,count(Query.Tratamiento_Nr) as Cantidad from
+                (select Categoria_Nombre,Tratamiento_nr from actions
+                where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'
+                group by 2) as Query group by 1 order by Cantidad desc;") );
+        }
         return DB::select( DB::raw("select Query.Categoria_Nombre as Categoria,count(Query.Tratamiento_Nr) as Cantidad from
-            (select Categoria_Nombre,Tratamiento_nr from actions
-            where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'
-            group by 2) as Query group by 1 order by Cantidad desc;") );
+                (select Categoria_Nombre,Tratamiento_nr,Profesional from actions
+                where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'
+                group by 2) as Query where Query.Profesional like '".$professional."' group by 1 order by Cantidad desc;") );
+
     }
 
     public static function close_month()

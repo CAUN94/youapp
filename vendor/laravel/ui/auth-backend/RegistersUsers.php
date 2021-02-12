@@ -18,6 +18,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
+        auth::user()->authorizeRoles('admin');
         return view('auth.register');
     }
 
@@ -29,6 +30,7 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
+        auth::user()->authorizeRoles('admin');
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
