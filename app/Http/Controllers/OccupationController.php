@@ -56,9 +56,13 @@ class OccupationController extends Controller
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);
+        if($professional == 'Klga. Daniella Vivallo Vera')
+            $coff = 0.45;
+        else
+            $coff = 1;
         foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
+            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);
+            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono*$coff);
         }
         $percentage = round($summary['Atenciones']*100/$goal,1);
         return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
@@ -136,9 +140,13 @@ class OccupationController extends Controller
         $summary = $this->summary($actions,$values);
         $percentage = round($summary['Atenciones']*100/$goal,1);
 
+        if(auth::user()->medilinkname == 'Klga. Daniella Vivallo Vera')
+            $coff = 0.45;
+        else
+            $coff = 1;
         foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
+            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);
+            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono*$coff);
         }
 
 
