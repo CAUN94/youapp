@@ -92,6 +92,8 @@ class OccupationController extends Controller
             $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
             $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
         }
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
         $percentage = round($summary['Atenciones']*100/$goal,1);
         return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
     }
@@ -174,11 +176,13 @@ class OccupationController extends Controller
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);
-
+        $coff = $this->coefficient();
         foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
+            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);
+            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono*$coff);
         }
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']*$coff);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']*$coff);
 
         $percentage = round($summary['Atenciones']*100/$goal,1);
         return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
