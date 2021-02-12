@@ -56,14 +56,13 @@ class OccupationController extends Controller
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
         $summary = $this->summary($actions,$values);
-        if($professional == 'Klga. Daniella Vivallo Vera')
-            $coff = 0.45;
-        else
-            $coff = 1;
         foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono*$coff);
+            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
+            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
         }
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
+
         $percentage = round($summary['Atenciones']*100/$goal,1);
         return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
     }
@@ -140,14 +139,15 @@ class OccupationController extends Controller
         $summary = $this->summary($actions,$values);
         $percentage = round($summary['Atenciones']*100/$goal,1);
 
-        if(auth::user()->medilinkname == 'Klga. Daniella Vivallo Vera')
-            $coff = 0.45;
-        else
-            $coff = 1;
+
+        $coff = $this->coefficient();
         foreach ($actions as $key => $action) {
             $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);
             $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono*$coff);
         }
+
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']*$coff);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']*$coff);
 
 
         return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
@@ -191,8 +191,7 @@ class OccupationController extends Controller
             $value_new = array_sum(array_column($actions, $value));
             $summary[$value] = $value_new;
         }
-        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
-        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
+
         return $summary;
     }
 
@@ -209,5 +208,23 @@ class OccupationController extends Controller
         }
         $formateado = "$ ".strrev($tmp);
         return $formateado;
+    }
+
+    public function coefficient()
+    {
+        $coff = [
+            'Klgo. Alonso Niklitschek Sanhueza' => 0.6,
+            'Klgo. César Moya Calderón' => 0.32,
+            'Klga. Daniella Vivallo Vera' => 0.45,
+            'Renata Barchiesi Vitali' => 0.6,
+            'Klgo. Iver Cristi' => 0.6,
+            'Sofía Vitali Magasich' => 0.45,
+            'Carolina Avilés Espinoza' => 0.7,
+            'Mariano Neira Palomo' => 0.45,
+            'Dr. Juan Manuel Guzmán Habinger' => 0.7,
+            'Sara Tarifeño Ramos' => 1,
+        ];
+
+        return $coff[auth::user()->medilinkname];
     }
 }
