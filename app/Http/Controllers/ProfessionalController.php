@@ -15,6 +15,9 @@ class ProfessionalController extends Controller
 
     public function index()
     {
+        if(!auth::user()->hasRole('admin')){
+                abort(401);
+        }
         if(auth::user()->hasRole('admin')){
             $actions = Action::professionalsCloseMonth();
             $summary = $this->summary($actions);
@@ -30,6 +33,9 @@ class ProfessionalController extends Controller
 
     public function show($name)
     {
+        if(!auth::user()->hasRole('admin')){
+                abort(401);
+        }
         if(auth::user()->hasRole('admin')){
             $actions = Action::professionalCloseMonth($name);
             $summary = $this->summary($actions);
@@ -44,20 +50,7 @@ class ProfessionalController extends Controller
             $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
             return view('professionals.show',compact('actions','summary','name','goal','percentage','remuneration'));
         }
-        if(auth::user()->hasRole('professional')){
-            if(auth::user()->medilinkname != $name){
-                abort(401);
-            }
-            $actions = Action::professionalCloseMonth($name);
-            $summary = $this->summary($actions);
-            foreach ($actions as $key => $action) {
-                $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-                $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
-            }
-            $goal = 300;
-            $percentage = round($summary['Total']*100/$goal,1);
-            return view('professionals.show',compact('actions','summary','name','goal','percentage'));
-        }
+
 
     }
 
