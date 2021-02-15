@@ -66,6 +66,8 @@ class HomeController extends Controller
         $pacientes = Appointment::tomorrow_appoiments();
         $appointment_last = Appointment::last_register();
 
+        return         $pacientes;
+
         return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
     }
 
