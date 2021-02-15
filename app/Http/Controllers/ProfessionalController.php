@@ -27,6 +27,8 @@ class ProfessionalController extends Controller
             }
             $goal = 300;
             $percentage = round($summary['Total']*100/$goal,1);
+            $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+            $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
             return view('professionals.index',compact('actions','summary','goal','percentage'));
         }
     }
