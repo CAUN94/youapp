@@ -11,7 +11,7 @@ pacientes.forEach(function (paciente) {
         mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
         whatsapp = "https://web.whatsapp.com/send?phone="+phone+"&text=Hola%20"+paciente['Nombre_paciente']+"!%20Te%20recordamos%20que%20tienes%20atención%20mañana%20con%20"+paciente['Profesional']+"%20a%20las%20"+hora+"%20hrs."
 
-        if(precio!=0){
+        if(precio==0){
             whatsapp += "%0A%0ANo%20olvides%20pagar%20antes%20de%20tu%20atención%20con%20transferencia%20o%20con%20tarjeta%20en%20https://pagatuprofesional.cl/profesionales/you-spa%0A%0AEl monto a pagar es de "+precio
         }
 
