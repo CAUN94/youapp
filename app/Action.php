@@ -34,7 +34,16 @@ class Action extends Model
 
     public static function occupation_summary($firstday,$lastday)
     {
-        return DB::select( DB::raw("select  Query.Pro as Profesional,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
+        $sql = "select  Query.Pro as Profesional,count(Query.T) as Atenciones,";
+        $sql .= "count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio,";
+        $sql .= "count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio,";
+        $sql .= "count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador,";
+        $sql .= "sum(PP) as Prestación, sum(A) as Abono";
+        $sql .= "from (";
+        $sql .= "select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query";
+        $sql .= "group by Query.Pro";
+
+        return DB::select( DB::raw($sql) );
     }
 
     public function occupation($firstday,$lastday,$professional = Null)
@@ -107,7 +116,7 @@ class Action extends Model
 
     public static function noRepeats()
     {
-        return Action::groupBy('Sucursal','Nombre','Apellido','Categoria_Nr','Categoria_Nombre','Tratamiento_Nr','Profesional','Estado','Convenio','Prestacion_Nr','Prestacion_Nombre','Pieza_Tratada','Fecha_Realizacion','Abonoo','Total')->get();
+        return Action::groupBy('Sucursal','Nombre','Apellido','Categoria_Nr','Categoria_Nombre','Tratamiento_Nr','Profesional','Estado','Convenio','Prestacion_Nr','Pieza_Tratada','Fecha_Realizacion','Abonoo','Total')->get();
     }
 
     public static function professionalsCloseMonth()

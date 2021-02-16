@@ -141,7 +141,6 @@ class OccupationController extends Controller
         $summary = $this->summary($actions,$values);
         $percentage = round($summary['Atenciones']*100/$goal,1);
 
-
         $coff = $this->coefficient();
         foreach ($actions as $key => $action) {
             $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);

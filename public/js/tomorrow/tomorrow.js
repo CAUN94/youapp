@@ -17,9 +17,6 @@ pacientes.forEach(function (paciente) {
 
         whatsapp +="%0A%0ATrae%20ropa%20cómoda,%20estamos%20en%20el%20Omnium,%20Av%20Apoquindo%204.900%20Loc%207%20y%208%20!%0A%0AAvisar%20en%20caso%20de%20haber%20presentado%20algún%20síntoma%20en%20los%20últimos%2014%20días%0A%0A"
 
-        // if (paciente['Comentario Cita'] != null && paciente['Comentario Cita'].includes('box')){
-        //     whatsapp += "Link%20para%20la%20consulta:%20"+paciente['Comentario Cita']
-        // }
 
         link = "<a href='"+whatsapp+"' target='_blank'>+"+phone+"</a>"
         table.append("<tr><td>" + nombre + "</td><td>" + mail +  "</td><td>"  + link + "</td></tr>");
