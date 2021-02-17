@@ -29,8 +29,8 @@ Route::get('/scraping-actions', 'ScrapingController@actions')->name('scraping-ac
 Route::get('/scraping-treatments', 'ScrapingController@treatments')->name('scraping-treatments');
 Route::get('/scraping-payments', 'ScrapingController@payments')->name('scraping-payments');
 
-Route::get('/professional', 'ProfessionalController@index')->name('professional.index');
-Route::get('/professional/{name}', 'ProfessionalController@show')->name('professional.show');
+Route::get('/professional', 'ProfessionalOcuppationController@index')->name('professional.index');
+Route::get('/professional/{name}', 'ProfessionalOcuppationController@show')->name('professional.show');
 
 Route::get('/occupation/{type}', 'OccupationController@occupation')->name('occupation');
 Route::post('/occupation', 'OccupationController@form')->name('form-occupation');

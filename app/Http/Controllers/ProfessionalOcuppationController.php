@@ -6,7 +6,7 @@ use App\Action;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProfessionalController extends Controller
+class ProfessionalOcuppationController extends Controller
 {
     public function __construct()
     {
