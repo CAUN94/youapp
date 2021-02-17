@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Staus;
+use App\Status;
 use Illuminate\Http\Request;
 
-class StausController extends Controller
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class StausController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Staus  $staus
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function show(Staus $staus)
+    public function show(Status $status)
     {
         //
     }
@@ -52,10 +52,10 @@ class StausController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Staus  $staus
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function edit(Staus $staus)
+    public function edit(Status $status)
     {
         //
     }
@@ -64,10 +64,10 @@ class StausController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Staus  $staus
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staus $staus)
+    public function update(Request $request, Status $status)
     {
         //
     }
@@ -75,10 +75,10 @@ class StausController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Staus  $staus
+     * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Staus $staus)
+    public function destroy(Status $status)
     {
         //
     }

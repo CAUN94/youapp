@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\treatment;
+use App\Treatment;
 use Illuminate\Http\Request;
 
 class TreatmentController extends Controller
@@ -41,10 +41,10 @@ class TreatmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\treatment  $treatment
+     * @param  \App\Treatment  $treatment
      * @return \Illuminate\Http\Response
      */
-    public function show(treatment $treatment)
+    public function show(Treatment $treatment)
     {
         //
     }
@@ -52,10 +52,10 @@ class TreatmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\treatment  $treatment
+     * @param  \App\Treatment  $treatment
      * @return \Illuminate\Http\Response
      */
-    public function edit(treatment $treatment)
+    public function edit(Treatment $treatment)
     {
         //
     }
@@ -64,10 +64,10 @@ class TreatmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\treatment  $treatment
+     * @param  \App\Treatment  $treatment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, treatment $treatment)
+    public function update(Request $request, Treatment $treatment)
     {
         //
     }
@@ -75,10 +75,10 @@ class TreatmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\treatment  $treatment
+     * @param  \App\Treatment  $treatment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(treatment $treatment)
+    public function destroy(Treatment $treatment)
     {
         //
     }

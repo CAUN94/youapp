@@ -672,7 +672,7 @@ class ComposerStaticInit5b616a6fd5a0ba85c9b555efed11695c
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
-        'App\\Staus' => __DIR__ . '/../..' . '/app/Staus.php',
+        'App\\Status' => __DIR__ . '/../..' . '/app/Status.php',
         'App\\Sucursal' => __DIR__ . '/../..' . '/app/Sucursal.php',
         'App\\Transfer' => __DIR__ . '/../..' . '/app/Transfer.php',
         'App\\Treatment' => __DIR__ . '/../..' . '/app/Treatment.php',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBenefitsTable extends Migration
+class AddNewFieldToBenefitsTreatmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBenefitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('benefits', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->unsigned()->nullable()
-                ->references('id')->on('categories')
+        Schema::table('benefits_treatments', function (Blueprint $table) {
+            $table->unsignedBigInteger('treatment_id');
+            $table->foreign('treatment_id')->unsigned()->nullable()
+                ->references('id')->on('treatments')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
@@ -31,6 +30,8 @@ class CreateBenefitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('benefits');
+        Schema::table('benefits_treatments', function (Blueprint $table) {
+            //
+        });
     }
 }
