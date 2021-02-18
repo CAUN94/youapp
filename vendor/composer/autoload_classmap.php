@@ -43,6 +43,7 @@ return array(
     'App\\Http\\Controllers\\SucursalController' => $baseDir . '/app/Http/Controllers/SucursalController.php',
     'App\\Http\\Controllers\\TransfersController' => $baseDir . '/app/Http/Controllers/TransfersController.php',
     'App\\Http\\Controllers\\TreatmentController' => $baseDir . '/app/Http/Controllers/TreatmentController.php',
+    'App\\Http\\Controllers\\YouScrapController' => $baseDir . '/app/Http/Controllers/YouScrapController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',

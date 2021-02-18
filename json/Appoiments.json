@@ -1,0 +1,26 @@
+Appoiments
+{
+"#": "8187",
+"Estado": "Anulado",
+"Fecha": "2021-04-01",
+"Hora inicio": "18:00:00",
+"Hora termino": "19:00:00",
+"Ultimo comentario": null,
+"Fecha Generación": "2021-01-28 22:23:28",
+"Atencion": "6903",
+"Profesional/Recurso": "Klgo. Alonso Niklitschek Sanhueza",
+"Rut Paciente": "22995129-7",
+"# Ficha": null,
+"Nombre paciente": "Alessandro",
+"Apellidos paciente": "Alesandroni",
+"E-mail": "ing.alessandroni@gmail.com",
+"Telefono": null,
+"Celular": "56 9 8437 3614",
+"RUT/DNI Apoderado": null,
+"Apoderado": null,
+"Convenio": null,
+"Convenio Secundario": "-",
+"Tipo Paciente": null,
+"Generación Presupuesto": "2021-01-28",
+"Sucursal": "You"
+}

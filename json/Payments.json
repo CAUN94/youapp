@@ -1,0 +1,28 @@
+Payments
+{
+"Sucursal": "You",
+"Atencion": "7113",
+"Profesional atencion": "Klga. Daniella Vivallo Vera",
+"Especialidad Profesional atencion": "Kinesiología",
+"Receptor pago": "Administrador",
+"# Pago": "4119",
+"Fecha de recepción": "2021-02-17",
+"# Paciente": "174",
+"Rut paciente": "22745958-1",
+"Nombre": "Sofia",
+"Apellidos": "Rodriguez",
+"Tipo Paciente": null,
+"RUT/DNI Apoderado": null,
+"Apoderado": null,
+"Convenio": null,
+"Convenio Secundario": "-",
+"# Boleta": "4666",
+"Total pago": "30000.00",
+"Total asociado a atencion": "30000.00",
+"Medio de pago": "Tarjeta de débito",
+"Banco": null,
+"Rut": "",
+"# Ref Cheque": "006011",
+"Vencimiento": "2021-02-17",
+"Generado": "2021-02-17 12:22:18"
+}

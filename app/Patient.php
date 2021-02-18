@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
-    //
+    protected $fillable = ['prevision','rut','genre','email','phone','type','type'];
+
 }

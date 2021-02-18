@@ -652,6 +652,7 @@ class ComposerStaticInit5b616a6fd5a0ba85c9b555efed11695c
         'App\\Http\\Controllers\\SucursalController' => __DIR__ . '/../..' . '/app/Http/Controllers/SucursalController.php',
         'App\\Http\\Controllers\\TransfersController' => __DIR__ . '/../..' . '/app/Http/Controllers/TransfersController.php',
         'App\\Http\\Controllers\\TreatmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/TreatmentController.php',
+        'App\\Http\\Controllers\\YouScrapController' => __DIR__ . '/../..' . '/app/Http/Controllers/YouScrapController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
