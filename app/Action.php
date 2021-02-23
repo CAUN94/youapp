@@ -76,8 +76,14 @@ class Action extends Model
     public static function close_month()
     {
     	$action = new Action;
-        $firstday = Carbon::create(null, date('m') - 1, 21, 00, 00, 01);
-        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        $firstday = Carbon::create(null, null, 21, 00, 00, 01);
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth()->subMonth();
+                $lastday->subMonth();
+            } else {
+                $firstday->subMonth();
+            }
         $diff = 4;
         return [
             'actions' => $action->occupation($firstday,$lastday),
@@ -122,16 +128,28 @@ class Action extends Model
     public static function professionalsCloseMonth()
     {
         $action = new Action;
-        $firstday = Carbon::create(null, date('m') - 1, 21, 00, 00, 01);
-        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        $firstday = Carbon::create(null, null, 21, 00, 00, 01);
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth()->subMonth();
+                $lastday->subMonth();
+            } else {
+                $firstday->subMonth();
+            }
         return DB::select( DB::raw("select Fecha_Realizacion as Fecha,Profesional as Profesional,Tratamiento_Nr as Tratamiento, sum(Precio_Prestacion) Prestación,sum(Abonoo) as Abono, Convenio as Convenio_Nombre, concat(Nombre,' ',Apellido) as Paciente, Estado as Estado  from actions  where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'  group by Profesional,Tratamiento_Nr  order by Fecha_Realizacion asc;") );
     }
 
     public static function professionalCloseMonth($name)
     {
         $action = new Action;
-        $firstday = Carbon::create(null, date('m') - 1, 21, 00, 00, 01);
-        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        $firstday = Carbon::create(null, null, 21, 00, 00, 01);
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth()->subMonth();
+                $lastday->subMonth();
+            } else {
+                $firstday->subMonth();
+            }
         return DB::select( DB::raw("select Fecha_Realizacion as Fecha,Profesional as Profesional,Tratamiento_Nr as Tratamiento, sum(Precio_Prestacion) Prestación,sum(Abonoo) as Abono, Convenio as Convenio_Nombre, concat(Nombre,' ',Apellido) as Paciente, Estado as Estado  from actions  where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' and Profesional like '".$name."'  group by Profesional,Tratamiento_Nr  order by Fecha_Realizacion asc;") );
     }
 

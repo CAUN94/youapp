@@ -119,14 +119,25 @@ class OccupationController extends Controller
         $action = new Action();
 
         if($type == "actual-month"){
-            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth();
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01);
             $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth();
+            } else {
+                $lastday->addMonth();
+            }
             $diff = 4;
             $title = "Mes Actual del 21/".$firstday->month." al 20/".$lastday->month;
         }
         elseif($type == "last-month"){
-            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth()->subMonth();
-            $lastday = Carbon::create(null, null, 20, 23, 55, 55)->subMonth();
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01);
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth()->subMonth();
+                $lastday->subMonth();
+            } else {
+                $firstday->subMonth();
+            }
             $diff = 4;
             $title = "Mes Vencido del 21/".$firstday->month." al 20/".$lastday->month;
         }
