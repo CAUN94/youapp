@@ -139,7 +139,8 @@
                                         <th>Prestación</th>
                                         <th>Abono</th>
                                     @elseif(auth::user()->hasRole('professional') and (Route::is('occupation-professional')) or Route::is('form-occupation-professional'))
-                                        <th>Pacientes</th>
+                                        <th>Fecha Cita</th>
+                                        <th>Paciente</th>
                                         <th>Con Convenio</th>
                                         <th>Sin Convenio</th>
                                         <th>Embajador</th>
