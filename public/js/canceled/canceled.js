@@ -5,7 +5,7 @@ canceled.forEach(function (paciente) {
     paciente['Celular'] = paciente['Celular'].replace(/ /g,'')
     nombre = paciente['Nombre_paciente'] + " " +paciente["Apellidos_paciente"]
     phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
-    fecha = paciente['Max(Fecha)'].slice(0, 10)
+    fecha = paciente['Max(Fecha)'].slice(0, 10)+" "+paciente['Hora_inicio']
     estado = paciente['Estado']
     profesional = paciente['Profesional']
     mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"

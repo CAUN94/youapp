@@ -29,6 +29,6 @@ class Appointment extends Model
     {
         $firsday = Carbon::create(null,null,null,null,null,null)->startOfWeek()->subDays(7);
         $lastday = Carbon::create(null,null,null,23,55,55);
-        return DB::select( DB::raw("select Nombre_paciente,Apellidos_paciente,Max(Fecha),Estado,Celular,Mail,Profesional from appointments where fecha <= '".$lastday."' and fecha >= '".$firsday."' and Estado in ('Anulado','No asiste') group by Rut_Paciente;") );
+        return DB::select( DB::raw("select Nombre_paciente,Hora_inicio,Apellidos_paciente,Max(Fecha),Estado,Celular,Mail,Profesional from appointments where fecha <= '".$lastday."' and fecha >= '".$firsday."' and Estado in ('Anulado','No asiste') group by Rut_Paciente;") );
     }
 }
