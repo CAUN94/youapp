@@ -248,6 +248,8 @@ class OccupationController extends Controller
             'Sofía Vitali Magasich' => 0.45,
             'Carolina Avilés Espinoza' => 0.7,
             'Mariano Neira Palomo' => 0.45,
+            'Melissa Ross Guerra' => 0.45,
+            'Cristina Valenzuela ' => 0.45,
             'Dr. Juan Manuel Guzmán Habinger' => 0.7,
             'Sara Tarifeño Ramos' => 1,
         ];
