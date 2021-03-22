@@ -25,7 +25,7 @@ class CreateTreatmentsTable extends Migration
             $table->string('boucher_nr')->nullable();
             $table->string('reference')->nullable();
             $table->integer('minutes')->default(60)->nullable();
-            $table->text('health_record')->nullable();
+            $table->string('health_record')->nullable();
             $table->unsignedBigInteger('patient_id')->nullable();
             $table->foreign('patient_id')->unsigned()->nullable()
                 ->references('id')->on('patients')
