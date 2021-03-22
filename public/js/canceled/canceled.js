@@ -1,14 +1,18 @@
 var table = $('#canceledTable');
-
 table.find("tbody tr").remove();
+console.log(canceled)
 canceled.forEach(function (paciente) {
-    paciente['Celular'] = paciente['Celular'].replace(/ /g,'')
-    nombre = paciente['Nombre_paciente'] + " " +paciente["Apellidos_paciente"]
-    phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
-    fecha = paciente['Max(Fecha)'].slice(0, 10)
-    estado = paciente['Estado']
-    profesional = paciente['Profesional']
-    mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
+    paciente["phone"] = paciente["phone"].toString().replace(/ /g,'')
+    nombre = paciente["patient_name"] + " " +paciente["patient_lastnames"]
+    phone = "569"+ paciente["phone"].substr(paciente["phone"].length - 8);
+    fecha = paciente["date"].slice(0, 10)
+    estado = paciente["status"]
+    if(paciente["professional"] == null){
+        profesional = paciente["professional_id"]
+    } else {
+        profesional = paciente["professional"]
+    }
+    mail = "<a href=mailto:"+paciente['email']+">"+paciente['email']+"</a>"
     link = "<a href='#' class='whatsapp' id="+phone+">+"+phone+"</a>"
     table.append("<tr><td>" + nombre + "</td><td>" + fecha + "</td><td>" + estado + "</td><td>" + profesional + "</td><td>" + mail + "</td><td>" + link + "</td></tr>");
 });

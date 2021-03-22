@@ -37,22 +37,19 @@
         </div>
 
         <!-- Pie Chart -->
-        <div class="col-xl-4 col-lg-5">
+{{--         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Actualizar Citas de Mañana</h6>
-                    @if(session()->has('message-appointments'))
-                        <small>{{ session()->get('message-appointments') }}</small>
-                    @endif
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <a href="{{url('scraping-appointments')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
+                    <a href="{{route('you-update')}}" class="mt-2 btn btn-primary btn-lg btn-block">Actualizar</a >
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @stop

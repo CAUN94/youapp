@@ -39,7 +39,6 @@ return array(
     'App\\Http\\Controllers\\PaymentsController' => $baseDir . '/app/Http/Controllers/PaymentsController.php',
     'App\\Http\\Controllers\\ProfessionalOcuppationController' => $baseDir . '/app/Http/Controllers/ProfessionalOcuppationController.php',
     'App\\Http\\Controllers\\ProfessionalsController' => $baseDir . '/app/Http/Controllers/ProfessionalsController.php',
-    'App\\Http\\Controllers\\ScrapingController' => $baseDir . '/app/Http/Controllers/ScrapingController.php',
     'App\\Http\\Controllers\\SucursalController' => $baseDir . '/app/Http/Controllers/SucursalController.php',
     'App\\Http\\Controllers\\TransfersController' => $baseDir . '/app/Http/Controllers/TransfersController.php',
     'App\\Http\\Controllers\\TreatmentController' => $baseDir . '/app/Http/Controllers/TreatmentController.php',

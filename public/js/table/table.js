@@ -1,20 +1,17 @@
 var table = $('#pacientesTable');
-console.log(pacientes)
 table.find("tbody tr").remove();
 pacientes.forEach(function (paciente) {
-    paciente['Celular'] = paciente['Celular'].replace(/ /g,'')
-    nombre = paciente['Nombre_paciente'] + " " +paciente["Apellidos_paciente"]
-    phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
-    mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
+    paciente['phone'] = paciente['phone'].toString().replace(/ /g,'')
+    nombre = paciente['name'] + " " +paciente["lastnames"]
+    phone = "569"+ paciente['phone'].substr(paciente['phone'].length - 8);
+    mail = "<a href=mailto:"+paciente['email']+">"+paciente['email']+"</a>"
     link = "<a href='#' class='whatsapp' id="+phone+">+"+phone+"</a>"
-    table.append("<tr><td>" + nombre + "</td><td>" + paciente['Rut_Paciente'] + "</td><td>" + mail + "</td><td>" + link + "</td></tr>");
+    table.append("<tr><td>" + nombre + "</td><td>" + paciente['rut'] + "</td><td>" + mail + "</td><td>" + link + "</td></tr>");
 });
 
 $(document).ready( function () {
     $('#pacientesTable').DataTable();
 } );
-
-
 
 $(document).on("click",".whatsapp", function (event) {
 

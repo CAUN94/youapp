@@ -15,6 +15,10 @@ class CreateBenefitsTable extends Migration
     {
         Schema::create('benefits', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->integer('price');
+            $table->string('description')->default('Not available');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->unsigned()->nullable()
                 ->references('id')->on('categories')

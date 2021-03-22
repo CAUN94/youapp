@@ -15,6 +15,10 @@ class CreateProfessionalsTable extends Migration
     {
         Schema::create('professionals', function (Blueprint $table) {
             $table->id();
+            $table->string('rut')->unique();
+            $table->string('email')->unique();
+            $table->integer('goal')->default(4);
+            $table->string('medilink')->unique();
             $table->timestamps();
         });
     }

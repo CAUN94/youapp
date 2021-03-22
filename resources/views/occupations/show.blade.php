@@ -139,6 +139,7 @@
                                         <th>Prestación</th>
                                         <th>Abono</th>
                                     @elseif(auth::user()->hasRole('professional') and (Route::is('occupation-professional')) or Route::is('form-occupation-professional'))
+                                        <th>Fecha Cita</th>
                                         <th>Pacientes</th>
                                         <th>Con Convenio</th>
                                         <th>Sin Convenio</th>
@@ -200,7 +201,7 @@
                             <?php $r = 243?>
                             @foreach($categories as $category)
                                 <span class="my-2 d-block text-gray" style="color: rgb({{$r}}, 112, 89) !important">
-                                    <i class="fas fa-circle "></i> {{$category->Categoria}}
+                                    <i class="fas fa-circle "></i> {{$category['Categoria']}}
                                 </span>
                             <?php $r = $r - 30 ?>
                             @endforeach
@@ -218,10 +219,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-    actions = {!! json_encode($actions, JSON_HEX_TAG) !!}
-</script>
-<script type="text/javascript">
-    summary = {!! json_encode($summary, JSON_HEX_TAG) !!}
+   treatments = {!! json_encode($treatments, JSON_HEX_TAG) !!}
 </script>
 <script type="text/javascript">
     summary = {!! json_encode($summary, JSON_HEX_TAG) !!}

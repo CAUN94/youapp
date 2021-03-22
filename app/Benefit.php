@@ -12,4 +12,9 @@ class Benefit extends Model
     {
         return $this->belongsToMany(Treatment::class,'benefits_treatments');
     }
+
+    public function category()
+    {
+    	return $this->belongsTo(Category::class);
+    }
 }

@@ -19,7 +19,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Prestaciones</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $summary['Prestación'] }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $summary['benefit'] }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -37,7 +37,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Abono</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$summary['Abono']}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{$summary['payment']}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -84,7 +84,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Atenciones</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $summary['Total'] }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count($professionalsOcuppation) }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -161,7 +161,7 @@
 
 @section('scripts')
 <script type="text/javascript">
-    actions = {!! json_encode($actions, JSON_HEX_TAG) !!}
+    professionalsOcuppation = {!! json_encode($professionalsOcuppation, JSON_HEX_TAG) !!}
 </script>
 <script type="text/javascript">
     summary = {!! json_encode($summary, JSON_HEX_TAG) !!}

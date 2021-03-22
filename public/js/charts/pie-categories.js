@@ -1,3 +1,4 @@
+console.log(categories)
 var labels = categories.reduce((acc, cur) => {
   acc = acc.concat(cur.Categoria);
   return acc

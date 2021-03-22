@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Action;
+use App\Category;
+use App\Patient;
+use App\Professional;
+use App\Treatment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OccupationController extends Controller
 {
@@ -20,17 +23,27 @@ class OccupationController extends Controller
         if(!auth::user()->hasRole('admin')){
                 abort(401);
         }
-        $action = new Action();
 
         if($type == "actual-month"){
-            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth();
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01);
             $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth();
+            } else {
+                $lastday->addMonth();
+            }
             $diff = 4;
             $title = "Mes Actual del 21/".$firstday->month." al 20/".$lastday->month;
         }
         elseif($type == "last-month"){
-            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth()->subMonth();
-            $lastday = Carbon::create(null, null, 20, 23, 55, 55)->subMonth();
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01);
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth()->subMonth();
+                $lastday->subMonth();
+            } else {
+                $firstday->subMonth();
+            }
             $diff = 4;
             $title = "Mes Vencido del 21/".$firstday->month." al 20/".$lastday->month;
         }
@@ -46,30 +59,39 @@ class OccupationController extends Controller
             $diff = 1;
             $title = "Mes Actual desde el ".$firstday->format('d-m-y');
         }
-        else {
+        else
+        {
             return redirect('/');
         }
 
-        $actions = $action->occupation($firstday,$lastday);
+
+        $treatments = Treatment::ocuppation($firstday,$lastday);
+
+        foreach ($treatments as $key => $treatment) {
+            $professional = Professional::find($treatment->professional_id)->getUser();
+            $treatment->professional = $professional['name']." ".$professional['lastnames'];
+        }
         $goal = $diff*75;
-        $categories = $action->category($firstday,$lastday);
+        $categories = Category::countCategory($firstday,$lastday);
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
-        $summary = $this->summary($actions,$values);
-        foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
+        $summary = $this->summary((array) $treatments,$values);
+        foreach ($treatments as $key => $treatment) {
+            $treatments[$key]->Prestación = $this->moneda_chilena($treatment->Prestación);
+            $treatments[$key]->Abono = $this->moneda_chilena($treatment->Abono);
         }
         $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
         $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
 
         $percentage = round($summary['Atenciones']*100/$goal,1);
-        return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
+        return view('occupations.show',compact('treatments','title','summary','type','percentage','goal','categories'));
     }
 
     public function form(Request $request)
     {
-        $action = new Action();
+        if(!auth::user()->hasRole('admin')){
+                abort(401);
+        }
         if($request->firstday > $request->lastday){
             return redirect('/');
         }
@@ -82,20 +104,25 @@ class OccupationController extends Controller
         }
         $title = "Ocupaciones del ".$request->firstday." al ".$request->lastday;
 
-        $actions = $action->occupation($firstday,$lastday);
+        $treatments = Treatment::ocuppation($firstday,$lastday);
         $goal = $diff*75;
-        $categories = $action->category($firstday,$lastday);
+        $categories = Category::countCategory($firstday,$lastday);
+        foreach ($treatments as $key => $treatment) {
+            $professional = Professional::find($treatment->professional_id)->getUser();
+            $treatment->professional = $professional['name']." ".$professional['lastnames'];
+        }
 
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
-        $summary = $this->summary($actions,$values);
-        foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
+        $summary = $this->summary((array) $treatments,$values);
+        foreach ($treatments as  $treatment) {
+            $treatment = (array) $treatment;
+            $treatment['Prestación'] = $this->moneda_chilena($treatment['Prestación']);
+            $treatment['Abono'] = $this->moneda_chilena($treatment['Abono']);
         }
         $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
         $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
         $percentage = round($summary['Atenciones']*100/$goal,1);
-        return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
+        return view('occupations.show',compact('treatments','title','summary','type','percentage','goal','categories'));
     }
 
     public function occupationprofessional($type)
@@ -103,17 +130,27 @@ class OccupationController extends Controller
         if(!auth::user()->hasRole('professional')){
                 abort(401);
         }
-        $action = new Action();
 
         if($type == "actual-month"){
-            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth();
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01);
             $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth();
+            } else {
+                $lastday->addMonth();
+            }
             $diff = 4;
             $title = "Mes Actual del 21/".$firstday->month." al 20/".$lastday->month;
         }
         elseif($type == "last-month"){
-            $firstday = Carbon::create(null, null, 21, 00, 00, 01)->subMonth()->subMonth();
-            $lastday = Carbon::create(null, null, 20, 23, 55, 55)->subMonth();
+            $firstday = Carbon::create(null, null, 21, 00, 00, 01);
+            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+            if(date('d') < 22){
+                $firstday->subMonth()->subMonth();
+                $lastday->subMonth();
+            } else {
+                $firstday->subMonth();
+            }
             $diff = 4;
             $title = "Mes Vencido del 21/".$firstday->month." al 20/".$lastday->month;
         }
@@ -132,26 +169,28 @@ class OccupationController extends Controller
         else {
             return redirect('/');
         }
-
-        $actions = $action->occupation($firstday,$lastday,auth::user()->medilinkname);
+        $treatments = Treatment::ocuppation($firstday,$lastday,auth::user()->getProfessional()->id);
+        foreach ($treatments as $key => $treatment) {
+            $professional = Professional::find($treatment->professional_id)->getUser();
+            $patient = Patient::find($treatment->patient_id);
+            $treatment->professional = $professional['name']." ".$professional['lastnames'];
+            $treatment->paciente = $patient['name']." ".$patient['lastnames'];
+        }
         $goal = $diff*75;
-        $categories = $action->category($firstday,$lastday,auth::user()->medilinkname);
-
+        $categories = Category::countCategory($firstday,$lastday,auth::user()->getProfessional()->id);
         $values = ['Atenciones','Convenio','Sin_Convenio','Embajador','Prestación','Abono'];
-        $summary = $this->summary($actions,$values);
-        $percentage = round($summary['Atenciones']*100/$goal,1);
+        $summary = $this->summary((array) $treatments,$values);
 
         $coff = $this->coefficient();
-        foreach ($actions as $key => $action) {
-            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación*$coff);
-            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono*$coff);
+        foreach ($treatments as $key => $treatment) {
+            $treatments[$key]->Prestación = $this->moneda_chilena($treatment->Prestación*$coff);
+            $treatments[$key]->Abono = $this->moneda_chilena($treatment->Abono*$coff);
         }
-
         $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']*$coff);
         $summary['Abono'] = $this->moneda_chilena($summary['Abono']*$coff);
-
-
-        return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
+        $summary['Atenciones'] = count($treatments);
+        $percentage = round($summary['Atenciones']*100/$goal,1);
+        return view('occupations.show',compact('treatments','title','summary','type','percentage','goal','categories'));
     }
 
     public function formprofessional(Request $request)
@@ -187,11 +226,11 @@ class OccupationController extends Controller
         return view('occupations.show',compact('actions','title','summary','type','percentage','goal','categories'));
     }
 
-    public function summary($actions,$values)
+    public function summary($treatment,$values)
     {
         $summary = [];
         foreach ($values as $key => $value) {
-            $value_new = array_sum(array_column($actions, $value));
+            $value_new = array_sum(array_column($treatment, $value));
             $summary[$value] = $value_new;
         }
 
@@ -228,6 +267,6 @@ class OccupationController extends Controller
             'Sara Tarifeño Ramos' => 1,
         ];
 
-        return $coff[auth::user()->medilinkname];
+        return $coff[auth::user()->getProfessional()->medilink];
     }
 }

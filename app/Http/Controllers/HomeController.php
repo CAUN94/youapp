@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Action;
-use App\Appointment;
+use App\Benefit;
+use App\Category;
+use App\Patient;
 use App\Payment;
+use App\Status;
+use App\Sucursal;
 use App\Transfer;
 use App\Treatment;
+use App\Professional;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
@@ -32,18 +36,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $action_last = Action::last_register();
-        $appointment_last = Appointment::last_register();
-        $treatment_last = Treatment::last_register();
-        $payment_last = Payment::last_register();
-        $fintoc_last = Transfer::last_register();
-        return view('home',compact('action_last','appointment_last','treatment_last','payment_last','fintoc_last'));
+        $now = Carbon::now();
+        $last_benefit = $now->diffInHours(Benefit::max('updated_at'));
+        $last_category = $now->diffInHours(Category::max('updated_at'));
+        $last_patient = $now->diffInHours(Patient::max('updated_at'));
+        $last_status = $now->diffInHours(Status::max('updated_at'));
+        $last_sucursal = $now->diffInHours(Sucursal::max('updated_at'));
+        $last_treament = $now->diffInHours(Treatment::max('updated_at'));
+        return view('home',compact(
+            'last_benefit',
+            'last_category',
+            'last_patient',
+            'last_status',
+            'last_sucursal',
+            'last_treament',
+        ));
     }
 
     public function panel()
     {
         auth::user()->authorizeRoles(['admin']);
-        $pacientes = DB::table('appointments')->groupBy('Rut_Paciente')->orderBy('Fecha_Generación','desc')->get();
+        $pacientes = Patient::orderBy('updated_at','desc')->get();
         return view('you-wsp/index',compact('pacientes'));
     }
 
@@ -56,17 +69,43 @@ class HomeController extends Controller
     public function canceled()
     {
         auth::user()->authorizeRoles(['admin']);
-        $canceled = Appointment::canceled();
+        $firsday = Carbon::create(null,null,null,null,null,null)->startOfWeek()->subDays(7)->format('Y-m-d');
+        $lastday = Carbon::create(null,null,null,23,55,55)->subDays(1)->format('Y-m-d');
+        $status = array(2,5);
+        $date = array($firsday,$lastday);
+        $canceled = Treatment::whereIn('status_id',$status)->whereBetween('date',$date)->get();
+        // return $canceled;
+        foreach ($canceled as $key => $cancel) {
+            if(Patient::find($cancel->patient_id)->treatments()->max('number') != $cancel->number){
+                $canceled->forget($key);
+            }
+            $profesional = Professional::find($cancel->professional_id)->getUser();
+            $status = Status::find($cancel->status_id);
+            $category = Category::find($cancel->category_id);
+            $patient = Patient::find($cancel->patient_id);
+            $cancel->professional = $profesional['name'];
+            $cancel->status = $status['name'];
+            $cancel->category = $category['name'];
+            $cancel->patient_name = $patient['name'];
+            $cancel->patient_lastnames = $patient['lastnames'];
+            $cancel->phone = $patient['phone'];
+            $cancel->email = $patient['email'];
+        }
+        $canceled = $canceled->values();
+
         return view('canceled/index',compact('canceled'));
     }
 
     public function tomorrow()
     {
         auth::user()->authorizeRoles(['admin']);
-        $pacientes = Appointment::tomorrow_appoiments();
-        $appointment_last = Appointment::last_register();
-
-        return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
+        $pacientes = Patient::tomorrow();
+        foreach ($pacientes as $paciente) {
+            $profesional = Professional::find($paciente->professional_id)->getUser();
+            $paciente->professional = $profesional['name'];
+        }
+        // return $pacientes;
+        return view('you-wsp/tomorrow',compact('pacientes'));
     }
 
     public function training()
@@ -75,7 +114,6 @@ class HomeController extends Controller
         return view('you-wsp/training');
     }
 
-    // Falta hacer refactoring
     public function general()
     {
         auth::user()->authorizeRoles(['admin']);
@@ -84,42 +122,16 @@ class HomeController extends Controller
         $endOfYear = $last->copy()->endOfYear();
         $startOfYear = $last->copy()->startOfYear();
 
-        // return Action::occupation_summary($startOfYear,$endOfYear);
-        $lastyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
-               sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
-        from actions
-        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
-        group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
-
-        $conveniosLast = DB::select( DB::raw("select year(Fecha) as año,month(Fecha) as mes,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador
-            from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
-                         sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E,
-                         Fecha_Realizacion as Fecha
-            from actions where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
-            group by Profesional,Tratamiento_Nr) as Query group by year(Fecha),month(Fecha)
-            order by año desc,mes asc;") );
-
-        // return $conveniosLast;
+        $lastyear = Treatment::finance($startOfYear,$endOfYear);
+        // return $lastyear;
+        $conveniosLast = Treatment::prevision_year($startOfYear,$endOfYear);
 
         $now = Carbon::now();
         $endOfYear = $now->copy()->endOfYear();
         $startOfYear = $now->copy()->startOfYear();
 
-        $actualyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
-               sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
-        from actions
-        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
-        group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
-
-        $conveniosActual = DB::select( DB::raw("select year(Fecha) as año,month(Fecha) as mes,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador
-            from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
-                         sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E,
-                         Fecha_Realizacion as Fecha
-            from actions where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
-            group by Profesional,Tratamiento_Nr) as Query group by year(Fecha),month(Fecha)
-            order by año desc,mes asc;") );
-
-        // return $conveniosActual;
+        $actualyear = Treatment::finance($startOfYear,$endOfYear);
+        $conveniosActual = Treatment::prevision_year($startOfYear,$endOfYear);
 
         return view('reports.index',compact('lastyear','actualyear','conveniosLast','conveniosActual'));
     }

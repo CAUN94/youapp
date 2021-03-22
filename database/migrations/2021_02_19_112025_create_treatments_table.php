@@ -15,7 +15,18 @@ class CreateTreatmentsTable extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('patient_id');
+            $table->integer('number');
+            $table->dateTime('date');
+            $table->time('hour')->nullable();
+            $table->integer('benefit')->nullable();
+            $table->integer('payment')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('method')->nullable();
+            $table->string('boucher_nr')->nullable();
+            $table->string('reference')->nullable();
+            $table->integer('minutes')->default(60)->nullable();
+            $table->longText('health_record')->default('Not available');
+            $table->unsignedBigInteger('patient_id')->nullable();
             $table->foreign('patient_id')->unsigned()->nullable()
                 ->references('id')->on('patients')
                 ->onUpdate('cascade')
@@ -30,14 +41,14 @@ class CreateTreatmentsTable extends Migration
                 ->references('id')->on('sucursals')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('benefit_treatment_id');
-            $table->foreign('benefit_treatment_id')->unsigned()->nullable()
-                ->references('id')->on('benefits_treatments')
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->unsigned()->nullable()
+                ->references('id')->on('categories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('professional_category_id');
-            $table->foreign('professional_category_id')->unsigned()->nullable()
-                ->references('id')->on('professional_categories')
+            $table->unsignedBigInteger('professional_id')->nullable();
+            $table->foreign('professional_id')->unsigned()->nullable()
+                ->references('id')->on('professionals')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

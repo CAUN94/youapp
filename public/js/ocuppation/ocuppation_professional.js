@@ -1,7 +1,14 @@
+
 var table = $('#occupationTable');
+console.log(treatments)
 table.find("tbody tr").remove();
-actions.forEach(function (action) {
-    table.append("<tr><td>" + action['Paciente'] + "</td><td>" + action['Convenio'] + "</td><td>" + action['Sin_Convenio'] + "</td><td>" + action['Embajador'] + "</td><td>"  + action['Prestación'] + "</td></tr>");
+treatments.forEach(function (treatment) {
+    table.append("<tr><td>"
+    + treatment['date'].slice(0, 10) + "</td><td>"
+    + treatment['paciente'] + "</td><td>"
+    + treatment['Convenio'] + "</td><td>"
+    + treatment['Sin_Convenio'] + "</td><td>"
+    + treatment['Embajador'] + "</td><td>"  + treatment['Prestación'] + "</td></tr>");
 });
 
 $(document).ready( function () {

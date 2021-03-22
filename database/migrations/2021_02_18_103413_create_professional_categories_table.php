@@ -15,6 +15,7 @@ class CreateProfessionalCategoriesTable extends Migration
     {
         Schema::create('professional_categories', function (Blueprint $table) {
             $table->id();
+            $table->float('percentage')->default(0.45);
             $table->unsignedBigInteger('professional_id');
             $table->foreign('professional_id')
                 ->references('id')->on('professionals')

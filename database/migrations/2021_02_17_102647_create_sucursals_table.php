@@ -15,6 +15,10 @@ class CreateSucursalsTable extends Migration
     {
         Schema::create('sucursals', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->string('address')->default('Not available');
+            $table->integer('capacity')->default(20);
+            $table->string('type')->default('Santiago');
             $table->timestamps();
         });
     }

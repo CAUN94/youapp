@@ -648,7 +648,6 @@ class ComposerStaticInit5b616a6fd5a0ba85c9b555efed11695c
         'App\\Http\\Controllers\\PaymentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentsController.php',
         'App\\Http\\Controllers\\ProfessionalOcuppationController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfessionalOcuppationController.php',
         'App\\Http\\Controllers\\ProfessionalsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfessionalsController.php',
-        'App\\Http\\Controllers\\ScrapingController' => __DIR__ . '/../..' . '/app/Http/Controllers/ScrapingController.php',
         'App\\Http\\Controllers\\SucursalController' => __DIR__ . '/../..' . '/app/Http/Controllers/SucursalController.php',
         'App\\Http\\Controllers\\TransfersController' => __DIR__ . '/../..' . '/app/Http/Controllers/TransfersController.php',
         'App\\Http\\Controllers\\TreatmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/TreatmentController.php',
