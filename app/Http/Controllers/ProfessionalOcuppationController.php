@@ -19,6 +19,7 @@ class ProfessionalOcuppationController extends Controller
     public function index()
     {
         if(auth::user()->hasRole('admin')){
+
             $professionalsOcuppation = Treatment::professionalsCloseMonth();
             $summary = $this->summary($professionalsOcuppation->toArray());
             foreach ($professionalsOcuppation as $key => $professionalOcuppation){

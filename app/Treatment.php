@@ -119,9 +119,9 @@ class Treatment extends Model
             ->get();
 
         foreach ($treatments as $key => $treatment){
-            $treatments[$key]->patient = Patient::findorfail($treatment->patient_id);
-            $treatments[$key]->category = Category::findorfail($treatment->category_id);
-            $treatments[$key]->status = Status::findorfail($treatment->status_id);
+            $treatments[$key]->patient = Patient::find($treatment->patient_id);
+            $treatments[$key]->category = Category::find($treatment->category_id);
+            $treatments[$key]->status = Status::find($treatment->status_id);
         }
 
         return $treatments;
@@ -142,11 +142,14 @@ class Treatment extends Model
             ->whereIn('status_id', [3]) // 3 is 'Atendido'
             ->where('professional_id',$professional->id)
             ->get();
+        if (count($treatments) == 0){
+            abort('500','Professional sin atencioines este mes');
+        }
 
         foreach ($treatments as $key => $treatment){
-            $treatments[$key]->patient = Patient::findorfail($treatment->patient_id);
-            $treatments[$key]->category = Category::findorfail($treatment->category_id);
-            $treatments[$key]->status = Status::findorfail($treatment->status_id);
+            $treatments[$key]->patient = Patient::find($treatment->patient_id);
+            $treatments[$key]->category = Category::find($treatment->category_id);
+            $treatments[$key]->status = Status::find($treatment->status_id);
         }
 
         return $treatments;
