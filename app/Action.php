@@ -77,13 +77,13 @@ class Action extends Model
     {
     	$action = new Action;
         $firstday = Carbon::create(null, null, 21, 00, 00, 01);
-            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
-            if(date('d') < 22){
-                $firstday->subMonth()->subMonth();
-                $lastday->subMonth();
-            } else {
-                $firstday->subMonth();
-            }
+        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        if(date('d') < 22){
+            $firstday->subMonth()->subMonth();
+            $lastday->subMonth();
+        } else {
+            $firstday->subMonth();
+        }
         $diff = 4;
         return [
             'actions' => $action->occupation($firstday,$lastday),
