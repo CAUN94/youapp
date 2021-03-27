@@ -123,6 +123,4 @@ class HomeController extends Controller
 
         return view('reports.index',compact('lastyear','actualyear','conveniosLast','conveniosActual'));
     }
-
-
 }

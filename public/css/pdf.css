@@ -1,0 +1,45 @@
+body {
+    margin: 10px 220px 0px 220px;
+}
+header {
+    display: flex;
+    justify-content: space-around;
+
+    width: 60%;
+}
+
+
+
+header img {
+    width: 300px;
+    height: auto;
+}
+
+
+.right {
+    margin-left: 60px;
+    float: left;
+}
+
+header div span {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+header div p {
+    display: block;
+    text-align: center;
+    margin: 2px;
+}
+
+.first {
+    display: block;
+    margin: 20px 0;
+}
+
+.second {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}

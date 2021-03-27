@@ -3,6 +3,7 @@ table.find("tbody tr").remove();
 pacientes.forEach(function (paciente) {
     if('No confirmado' == paciente['Estado'] || 'Agenda Online' == paciente['Estado']){
         nombre = paciente['Nombre_paciente'] + " " +paciente["Apellidos_paciente"]
+        nr = paciente['Tratamiento_Nr']
         paciente['Celular'] = paciente['Celular'].toString()
         paciente['Celular'] = paciente['Celular'].replace(/ /g,'')
         hora = paciente['Hora_inicio'].slice(0, -3)
@@ -30,7 +31,7 @@ pacientes.forEach(function (paciente) {
 
 
 
-        link = "<a href='"+whatsapp+"' target='_blank'>+"+phone+"</a>"
+        link = "<a href='"+whatsapp+"' target='_blank'>+"+phone+"</a><br><a href='/pdf/"+nr+"' target='_blank'>Permiso PDF</pdf></a>"
         table.append("<tr><td>" + nombre + "</td><td>" + mail +  "</td><td>"  + link + "</td></tr>");
     }
 });

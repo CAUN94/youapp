@@ -16,8 +16,13 @@ class Appointment extends Model
     public static function tomorrow_appoiments()
     {
     	$tomorrow = Carbon::tomorrow();
-        return DB::select( DB::raw("select a.Profesional , Estado,Nombre_paciente,Apellidos_paciente,Celular,Hora_inicio,TotalAtencion+Avance as TotalAtencion,Mail from appointments as a join treatments
+        return DB::select( DB::raw("select a.id,a.Profesional , a.Tratamiento_Nr, Estado,Nombre_paciente,Apellidos_paciente,Celular,Hora_inicio,TotalAtencion+Avance as TotalAtencion,Mail from appointments as a join treatments
         on a.Tratamiento_Nr = treatments.Atencion where  a.id in (SELECT max(id) FROM appointments where Fecha = '".$tomorrow."'  group by Tratamiento_Nr) and Estado in ('No Confirmado','Agenda Online') order by Hora_inicio asc") );
+    }
+
+    public static function tomorrow_appoiment($nr){
+        return DB::select( DB::raw("select a.id, a.Tratamiento_Nr, a.Profesional , a.Rut_Paciente,Fecha, Estado,Nombre_paciente,Apellidos_paciente,Celular,Hora_inicio,TotalAtencion+Avance as TotalAtencion,Mail from appointments as a join treatments
+        on a.Tratamiento_Nr = treatments.Atencion where  a.id in (SELECT max(id) FROM appointments group by Tratamiento_Nr) and Estado in ('No Confirmado','Agenda Online') and a.Tratamiento_Nr = '".$nr."' order by Hora_inicio asc") );
     }
 
     public static function noRepeat()
