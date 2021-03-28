@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\User;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class PDFController extends Controller
 			$professional = User::where('medilinkname',$patient->Profesional)->first();
 		}
 
-		$pdf = \PDF::loadView('layouts.pdf',compact('patient','professional','now'));
+		$pdf = PDF::loadView('layouts.pdf',compact('patient','professional','now'));
 	    return $pdf->stream('mi-archivo.pdf');
 	}
 }
