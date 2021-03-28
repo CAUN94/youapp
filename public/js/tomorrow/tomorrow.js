@@ -33,7 +33,7 @@ pacientes.forEach(function (paciente) {
 
 
 
-        link = "<a href='"+whatsapp+"' target='_blank'>+"+phone+"</a><br><a href='/pdf/"+nr+"' target='_blank'>Permiso PDF</pdf></a>"
+        link = "<a href='"+whatsapp+"' target='_blank'>+"+phone+"</a><br><a href='/youapp/public/pdf/"+nr+"' target='_blank'>Permiso PDF</pdf></a>"
         table.append("<tr><td>" + nombre + "</td><td>" + mail +  "</td><td>"  + link + "</td></tr>");
     }
 });
