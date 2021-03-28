@@ -57,7 +57,7 @@
             <span>Paciente: {{$patient->Nombre_paciente}} {{$patient->Apellidos_paciente}}, RUN {{$patient->Rut_Paciente}}</span>
         </div>
         <div class="second">
-            Se acredita que el paciente {{$patient->Nombre_paciente}} {{$patient->Apellidos_paciente}}, RUN {{$patient->Rut_Paciente}}, tiene una atención en nuestra clínica el día {{$patient->Fecha}} a las {{$patient->Hora_inicio}} hrs.
+            Se acredita que el paciente {{$patient->Nombre_paciente}} {{$patient->Apellidos_paciente}}, RUN {{$patient->Rut_Paciente}}, tiene una atención en nuestra clínica el día {{substr($patient->Fecha,0,10)}} a las {{substr($patient->Hora_inicio,0,6)}} hrs.
         </div>
     </main>
 
