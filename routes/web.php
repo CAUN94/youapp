@@ -4,13 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/pdf/{id}', 'PDFController@download');
+Route::get('/pdf/{id}', 'PDFController@download')->name('permiso');;
 
 Route::get('/you-wsp', 'HomeController@panel')->name('you-wsp');
 Route::get('/excel', 'HomeController@excel')->name('excel');
 Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow')->name('tomorrow');
 Route::get('/you-wsp/training', 'HomeController@training')->name('training');
-// Route::get('/medilink', 'HomeController@medilink')->name('medilink');
 Route::get('/canceled', 'HomeController@canceled')->name('canceled');
 Route::get('/excel', 'HomeController@excel')->name('excel');
 Route::get('/general', 'HomeController@general')->name('general');

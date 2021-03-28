@@ -27,6 +27,8 @@ pacientes.forEach(function (paciente) {
             whatsapp += "%0A%0ALa%20Nutricionista%20Melissa%20solicita%20llenar%20la%20siguiente%20encuesta%20para%20facilitar%20el%20proceso:%0Ahttps://docs.google.com/forms/d/1mp5OTanOpuyFlWvzInIW3oM5pnxUz8kbWoaNAsDlXWY/edit?usp=sharing"
         }
 
+        // whatsapp += "%0A%0AAdjuntamos%20el%20documento%20necesario%20para%20poder%20movilizarse%20en%20fase%201%20<a href='/pdf/"+nr+"' target='_blank'>Permiso PDF</pdf></a>"
+
         whatsapp +="%0A%0ATrae%20ropa%20cómoda,%20estamos%20en%20el%20Omnium,%20Av%20Apoquindo%204.900%20Loc%207%20y%208%20!%0A%0AAvisar%20en%20caso%20de%20haber%20presentado%20algún%20síntoma%20en%20los%20últimos%2014%20días%0A%0A"
 
 

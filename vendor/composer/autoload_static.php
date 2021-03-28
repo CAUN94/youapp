@@ -667,6 +667,7 @@ class ComposerStaticInit5b616a6fd5a0ba85c9b555efed11695c
         'App\\Http\\Controllers\\FintocController' => __DIR__ . '/../..' . '/app/Http/Controllers/FintocController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\OccupationController' => __DIR__ . '/../..' . '/app/Http/Controllers/OccupationController.php',
+        'App\\Http\\Controllers\\PDFController' => __DIR__ . '/../..' . '/app/Http/Controllers/PDFController.php',
         'App\\Http\\Controllers\\PaymentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentsController.php',
         'App\\Http\\Controllers\\ProfessionalController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfessionalController.php',
         'App\\Http\\Controllers\\ScrapingController' => __DIR__ . '/../..' . '/app/Http/Controllers/ScrapingController.php',

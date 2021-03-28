@@ -31,6 +31,7 @@ return array(
     'App\\Http\\Controllers\\FintocController' => $baseDir . '/app/Http/Controllers/FintocController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\OccupationController' => $baseDir . '/app/Http/Controllers/OccupationController.php',
+    'App\\Http\\Controllers\\PDFController' => $baseDir . '/app/Http/Controllers/PDFController.php',
     'App\\Http\\Controllers\\PaymentsController' => $baseDir . '/app/Http/Controllers/PaymentsController.php',
     'App\\Http\\Controllers\\ProfessionalController' => $baseDir . '/app/Http/Controllers/ProfessionalController.php',
     'App\\Http\\Controllers\\ScrapingController' => $baseDir . '/app/Http/Controllers/ScrapingController.php',
