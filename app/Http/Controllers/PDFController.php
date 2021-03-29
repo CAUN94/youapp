@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Action;
 use App\Appointment;
 use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -25,6 +26,6 @@ class PDFController extends Controller
 		}
 
 		$pdf = PDF::loadView('layouts.pdf',compact('patient','professional','now'));
-	    return $pdf->stream('mi-archivo.pdf');
+	    return $pdf->stream('youjustbetter.pdf');
 	}
 }
