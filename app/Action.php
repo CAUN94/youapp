@@ -40,7 +40,7 @@ class Action extends Model
         $sql .= "count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador,";
         $sql .= "sum(PP) as Prestación, sum(A) as Abono";
         $sql .= "from (";
-        $sql .= "select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query";
+        $sql .= "select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' and Profesional not like 'Internos You' group by Profesional,Tratamiento_Nr) as Query";
         $sql .= "group by Query.Pro";
 
         return DB::select( DB::raw($sql) );
@@ -49,7 +49,7 @@ class Action extends Model
     public function occupation($firstday,$lastday,$professional = Null)
     {
         if(is_null($professional)){
-            return DB::select( DB::raw("select  Query.Pro as Profesional,Query.P as Paciente,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
+            return DB::select( DB::raw("select  Query.Pro as Profesional,Query.P as Paciente,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' and Profesional not like 'Internos You' group by Profesional,Tratamiento_Nr) as Query group by Query.Pro;") );
         }
 
         return DB::select( DB::raw("select  Query.F as Fecha,Query.P as Paciente,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador, sum(PP) as Prestación, sum(A) as Abono from (select Profesional as Pro,Fecha_Realizacion as F,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP, sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E from actions where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' group by Profesional,Tratamiento_Nr) as Query
@@ -63,7 +63,7 @@ class Action extends Model
         if(is_null($professional)){
             return DB::select( DB::raw("select Query.Categoria_Nombre as Categoria,count(Query.Tratamiento_Nr) as Cantidad from
                 (select Categoria_Nombre,Tratamiento_nr from actions
-                where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'
+                where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' and Profesional not like 'Internos You'
                 group by 2) as Query group by 1 order by Cantidad desc;") );
         }
         return DB::select( DB::raw("select Query.Categoria_Nombre as Categoria,count(Query.Tratamiento_Nr) as Cantidad from
@@ -136,7 +136,7 @@ class Action extends Model
             } else {
                 $firstday->subMonth();
             }
-        return DB::select( DB::raw("select Fecha_Realizacion as Fecha,Profesional as Profesional,Tratamiento_Nr as Tratamiento, sum(Precio_Prestacion) Prestación,sum(Abonoo) as Abono, Convenio as Convenio_Nombre, concat(Nombre,' ',Apellido) as Paciente, Estado as Estado  from actions  where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."'  group by Profesional,Tratamiento_Nr  order by Fecha_Realizacion asc;") );
+        return DB::select( DB::raw("select Fecha_Realizacion as Fecha,Profesional as Profesional,Tratamiento_Nr as Tratamiento, sum(Precio_Prestacion) Prestación,sum(Abonoo) as Abono, Convenio as Convenio_Nombre, concat(Nombre,' ',Apellido) as Paciente, Estado as Estado  from actions  where Fecha_Realizacion <= '".$lastday."' and Fecha_Realizacion >= '".$firstday."' and Profesional not like 'Internos You' group by Profesional,Tratamiento_Nr  order by Fecha_Realizacion asc;") );
     }
 
     public static function professionalCloseMonth($name)
