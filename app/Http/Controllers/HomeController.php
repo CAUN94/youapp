@@ -88,14 +88,14 @@ class HomeController extends Controller
         $lastyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
                sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
         from actions
-        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
+        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."' and Profesional not like 'Internos You'
         group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
 
         $conveniosLast = DB::select( DB::raw("select year(Fecha) as año,month(Fecha) as mes,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador
             from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
                          sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E,
                          Fecha_Realizacion as Fecha
-            from actions where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
+            from actions where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."' and Profesional not like 'Internos You'
             group by Profesional,Tratamiento_Nr) as Query group by year(Fecha),month(Fecha)
             order by año desc,mes asc;") );
 
@@ -108,14 +108,14 @@ class HomeController extends Controller
         $actualyear = DB::select( DB::raw("select month(Fecha_Realizacion) as Fecha,
                sum(Precio_Prestacion) Prestacion,sum(Abonoo) as Abono
         from actions
-        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
+        where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."' and Profesional not like 'Internos You'
         group by month(Fecha_Realizacion)  order by Fecha_Realizacion asc;") );
 
         $conveniosActual = DB::select( DB::raw("select year(Fecha) as año,month(Fecha) as mes,count(Query.T) as Atenciones,count(CASE when C <> 'Sin Convenio' and C <> 'Embajador' and C <> 'Pro Bono' THEN 1 END) as Convenio, count(CASE when C = 'Sin Convenio' THEN 1 END) as Sin_Convenio, count(CASE when C = 'Embajador' or C = 'Pro Bono' THEN 1 END) as Embajador
             from (select Profesional as Pro,Tratamiento_Nr as T, sum(Precio_Prestacion) as PP,
                          sum(Abonoo) as A, Convenio as C, concat(Nombre,' ',Apellido) as P, Estado as E,
                          Fecha_Realizacion as Fecha
-            from actions where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."'
+            from actions where Fecha_Realizacion <= '".$endOfYear."' and Fecha_Realizacion >= '".$startOfYear."' and Profesional not like 'Internos You'
             group by Profesional,Tratamiento_Nr) as Query group by year(Fecha),month(Fecha)
             order by año desc,mes asc;") );
 
