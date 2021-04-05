@@ -78,6 +78,10 @@
                             <i class="fab fa-whatsapp"></i>
                             <span>Pacientes</span>
                         </a>
+                        <a class="collapse-item" href="{{ route('today') }}">
+                            <i class="fas fa-calendar-day"></i>
+                            <span>Agenda de Hoy</span>
+                        </a>
                         <a class="collapse-item" href="{{ route('tomorrow') }}">
                             <i class="fas fa-calendar-day"></i>
                             <span>Agenda de Mañana</span>
@@ -187,39 +191,17 @@
                         <a class="collapse-item" href="{{ route('professional.index')}}">
                             <i class="fas fa-users"></i> Equipo Completo
                         </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klga. Daniella Vivallo Vera']) }}">
-                            <i class="fas fa-crown"></i> Daniella Vivallo
+                        <?php $professionals = App\User::whereNotNull('medilinkname')->orderby('name')->get(); ?>
+                        @foreach ($professionals as $professional)
+                        <a class="collapse-item" href="{{ route('professional.show', ['name' => $professional->medilinkname]) }}">
+                            @if($professional->email == 'daniella.vivallo@gmail.com')
+                                <i class="fas fa-crown"></i> {{$professional->name}}
+                            @else
+                                <i class="fas fa-notes-medical"></i> {{$professional->name}}
+                            @endif
+
                         </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klgo. Iver Cristi']) }}">
-                            <i class="fas fa-notes-medical"></i> Iver Cristi
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klgo. Alonso Niklitschek Sanhueza']) }}">
-                            <i class="fas fa-notes-medical"></i> Alonso Niklitschek
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Klgo. César Moya Calderón']) }}">
-                            <i class="fas fa-notes-medical"></i> César Moya
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Renata Barchiesi Vitali']) }}">
-                            <i class="fas fa-notes-medical"></i> Renata Barchiesi
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Carolina Avilés Espinoza']) }}">
-                            <i class="fas fa-notes-medical"></i> Carolina Avilés
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Mariano Neira Palomo']) }}">
-                            <i class="fas fa-notes-medical"></i> Mariano Neira
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Sofía Vitali Magasich']) }}">
-                            <i class="fas fa-notes-medical"></i> Sofía Vitali
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Dr. Juan Manuel Guzmán Habinger']) }}">
-                            <i class="fas fa-notes-medical"></i> Juan Manuel Guzmán
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Sara Tarifeño Ramos']) }}">
-                            <i class="fas fa-notes-medical"></i> Sara Tarifeño
-                        </a>
-                        <a class="collapse-item" href="{{ route('professional.show', ['name' => 'Internos You']) }}">
-                            <i class="fas fa-notes-medical"></i> Internos You
-                        </a>
+                        @endforeach
                     </div>
                 </div>
             </li>

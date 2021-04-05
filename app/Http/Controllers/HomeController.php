@@ -60,6 +60,16 @@ class HomeController extends Controller
         return view('canceled/index',compact('canceled'));
     }
 
+    public function today()
+    {
+        auth::user()->authorizeRoles(['admin']);
+        $date = Carbon::today();
+        $pacientes = Appointment::appoiments($date);
+        $appointment_last = Appointment::last_register();
+
+        return view('you-wsp/today',compact('appointment_last','pacientes'));
+    }
+
     public function tomorrow()
     {
         auth::user()->authorizeRoles(['admin']);

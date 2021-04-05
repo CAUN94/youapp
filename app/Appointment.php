@@ -13,6 +13,12 @@ class Appointment extends Model
         return Appointment::max('updated_at');
     }
 
+     public static function appoiments($date)
+    {
+        return DB::select( DB::raw("select a.id,a.Profesional , a.Tratamiento_Nr, Estado,Nombre_paciente,Apellidos_paciente,Celular,Hora_inicio,TotalAtencion+Avance as TotalAtencion,Mail from appointments as a join treatments
+        on a.Tratamiento_Nr = treatments.Atencion where  a.id in (SELECT max(id) FROM appointments where Fecha = '".$date."'  group by Tratamiento_Nr) and Estado not in ('Anulado','Cambio de Fecha') order by Hora_inicio asc") );
+    }
+
     public static function tomorrow_appoiments()
     {
     	$tomorrow = Carbon::tomorrow();

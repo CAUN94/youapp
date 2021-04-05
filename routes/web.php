@@ -9,6 +9,7 @@ Route::get('/pdf/{id}', 'PDFController@download')->name('permiso');;
 Route::get('/you-wsp', 'HomeController@panel')->name('you-wsp');
 Route::get('/excel', 'HomeController@excel')->name('excel');
 Route::get('/you-wsp/tomorrow', 'HomeController@tomorrow')->name('tomorrow');
+Route::get('/you-wsp/today', 'HomeController@today')->name('today');
 Route::get('/you-wsp/training', 'HomeController@training')->name('training');
 Route::get('/canceled', 'HomeController@canceled')->name('canceled');
 Route::get('/excel', 'HomeController@excel')->name('excel');

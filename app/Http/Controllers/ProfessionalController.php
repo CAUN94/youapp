@@ -112,6 +112,7 @@ class ProfessionalController extends Controller
             'Mariano Neira Palomo' => 0.45,
             'Dr. Juan Manuel Guzmán Habinger' => 0.7,
             'Sara Tarifeño Ramos' => 1,
+            'María Jesús Martinez León' => 0.45,
         ];
 
         return $coff[$name];
