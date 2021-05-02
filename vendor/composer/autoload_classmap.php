@@ -9,6 +9,7 @@ return array(
     'ActionSeeder' => $baseDir . '/database/seeds/ActionSeeder.php',
     'App\\Action' => $baseDir . '/app/Action.php',
     'App\\Appointment' => $baseDir . '/app/Appointment.php',
+    'App\\Booking' => $baseDir . '/app/Booking.php',
     'App\\Console\\Commands\\fintocHourly' => $baseDir . '/app/Console/Commands/fintocHourly.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',

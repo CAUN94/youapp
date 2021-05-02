@@ -645,6 +645,7 @@ class ComposerStaticInit5b616a6fd5a0ba85c9b555efed11695c
         'ActionSeeder' => __DIR__ . '/../..' . '/database/seeds/ActionSeeder.php',
         'App\\Action' => __DIR__ . '/../..' . '/app/Action.php',
         'App\\Appointment' => __DIR__ . '/../..' . '/app/Appointment.php',
+        'App\\Booking' => __DIR__ . '/../..' . '/app/Booking.php',
         'App\\Console\\Commands\\fintocHourly' => __DIR__ . '/../..' . '/app/Console/Commands/fintocHourly.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',

@@ -10,7 +10,7 @@ pacientes.forEach(function (paciente) {
         precio = new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(paciente['TotalAtencion'])
         phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
         mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
-        whatsapp = "https://web.whatsapp.com/send?phone="+phone+"&text=Hola%20"+paciente['Nombre_paciente']+"!%20Te%20recordamos%20que%20tienes%20atención%20mañana%20con%20"+paciente['Profesional']+"%20a%20las%20"+hora+"%20hrs."
+        whatsapp = "https://web.whatsapp.com/send?phone="+phone+"&text=*ATENCIÓN%20CAMBIO%20DE%20CASA*%0A%0A*Nueva%20Sede:%20San%20pascual%20736,%20las%20condes*%0A%0AHola%20"+paciente['Nombre_paciente']+"!%20Te%20recordamos%20que%20tienes%20atención%20mañana%20con%20"+paciente['Profesional']+"%20a%20las%20"+hora+"%20hrs."
         console.log(nombre)
         console.log(paciente['TotalAtencion'])
         console.log(paciente['Profesional'])
@@ -29,7 +29,7 @@ pacientes.forEach(function (paciente) {
 
         whatsapp += "%0A%0AAdjuntamos%20el%20documento%20necesario%20para%20poder%20movilizarse%20en%20fase%201%20http://justbetter.cl/youapp/public/pdf/"+nr
 
-        whatsapp +="%0A%0ATrae%20ropa%20cómoda,%20estamos%20en%20el%20Omnium,%20Av%20Apoquindo%204.900%20Loc%207%20y%208%20!%0A%0AAvisar%20en%20caso%20de%20haber%20presentado%20algún%20síntoma%20en%20los%20últimos%2014%20días%0A%0A"
+        whatsapp +="%0A%0ATrae%20ropa%20cómoda,%20estamos%20en%20%20San%20pascual%20736,%20las%20condes%0A%0AAvisar%20en%20caso%20de%20haber%20presentado%20algún%20síntoma%20en%20los%20últimos%2014%20días%0A%0A"
 
 
 
