@@ -143,7 +143,7 @@ class Action extends Model
     {
         $action = new Action;
         $firstday = Carbon::create(null, null, 21, 00, 00, 01);
-            $lastday = Carbon::create(null, null, 20, 23, 55, 55);
+        $lastday = Carbon::create(null, null, 20, 23, 55, 55);
             if(date('d') < 22){
                 $firstday->subMonth()->subMonth();
                 $lastday->subMonth();
