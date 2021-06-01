@@ -7,7 +7,9 @@ pacientes.forEach(function (paciente) {
         paciente['Celular'] = paciente['Celular'].toString()
         paciente['Celular'] = paciente['Celular'].replace(/ /g,'')
         hora = paciente['Hora_inicio'].slice(0, -3)
+        paciente['Profesional'] = paciente['Profesional'].replace(/\s/g,'%20')
         precio = new Intl.NumberFormat('es-CL', {currency: 'CLP', style: 'currency'}).format(paciente['TotalAtencion'])
+        precio = precio.replace(/\s/g,'%20')
         phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
         mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
         texto = 'Hola '+paciente['Nombre_paciente']+'! Te recordamos que tienes atención mañana con '+paciente['Profesional']+' a las '+hora+' hrs.'
