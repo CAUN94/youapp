@@ -45,7 +45,7 @@
         <img src="https://cdn.fs.teachablecdn.com/2OJfrvxiQTaLOw1tWA28">
         <div>
             <p><span>You</span></p>
-            <p>Av. Apoquindo 4900, Local 7</p>
+            <p>San Pascual 736</p>
             <p>Teléfono 56933809726</p>
         </div>
 
