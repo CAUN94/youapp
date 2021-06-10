@@ -22,7 +22,7 @@ pacientes.forEach(function (paciente) {
             texto += "%0A%0ALa%20Nutricionista%20Melissa%20solicita%20llenar%20la%20siguiente%20encuesta%20para%20facilitar%20el%20proceso:%0Ahttps://docs.google.com/forms/d/1mp5OTanOpuyFlWvzInIW3oM5pnxUz8kbWoaNAsDlXWY/edit?usp=sharing"
         }
 
-        texto += '--Adjuntamos documento para moverse en fase 1--http://justbetter.cl/youapp/public/pdf/'+nr
+        texto += '--Adjuntamos documento que se solicita en comisaria virtual para asistir a cita.--http://justbetter.cl/youapp/public/pdf/'+nr
         texto += '--Trae ropa cómoda, estamos en San pascual 736, Las Condes--Avisar en caso de haber presentado algún síntoma en los últimos 14 días'
 
         texto = texto.replace(/\--/g,'%0A%0A')
