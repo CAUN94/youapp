@@ -107,6 +107,27 @@
                     <i class="fas fa-file-contract"></i>
                     <span>Reportes Anual</span>
                 </a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsenine"
+                    aria-expanded="true" aria-controls="collapsenine">
+                    <i class="fas fa-file-contract"></i>
+                    <span>Reportes Semanales</span>
+                </a>
+                <div id="collapsenine" class="collapse" aria-labelledby="headingnine" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('week.index')}}">
+                            <i class="fas fa-table"></i>
+                            Semana Vencida
+                        </a>
+                        <hr>
+                        <h6 class="collapse-header">Personalizado</h6>
+                        <form class="side" method="POST" action="{{ route('form-week')}}">
+                            @csrf
+                            <input class="form-control" name="firstday" type="date">
+                            <input class="form-control" name="lastday" type="date">
+                            <input class="form-control" type="submit">
+                        </form>
+                    </div>
+                </div>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-file-contract"></i>

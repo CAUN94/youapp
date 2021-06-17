@@ -26,10 +26,6 @@ for (var i = 0; i < categories.length; i++) {
   g += 10
 }
 
-console.log(labels)
-console.log(data)
-console.log(background)
-console.log(backgroundH)
 
 var ctx = document.getElementById("Categorias");
 var Categorias = new Chart(ctx, {

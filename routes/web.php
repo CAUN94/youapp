@@ -34,6 +34,11 @@ Route::get('/scraping-payments', 'ScrapingController@payments')->name('scraping-
 Route::get('/professional', 'ProfessionalController@index')->name('professional.index');
 Route::get('/professional/{name}', 'ProfessionalController@show')->name('professional.show');
 
+Route::get('/weekreport', 'WeekController@index')->name('week.index');
+Route::get('/weekreport', 'WeekController@index')->name('week.index');
+Route::post('/weekreport', 'WeekController@show')->name('form-week');
+
+
 Route::get('/occupation/{type}', 'OccupationController@occupation')->name('occupation');
 Route::post('/occupation', 'OccupationController@form')->name('form-occupation');
 Route::get('/occupation-professional/{type}', 'OccupationController@occupationprofessional')->name('occupation-professional');
