@@ -116,7 +116,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('week.index')}}">
                             <i class="fas fa-table"></i>
-                            Semana Vencida
+                            Medios de Pago
                         </a>
                         <hr>
                         <h6 class="collapse-header">Personalizado</h6>
@@ -209,6 +209,9 @@
                 </a>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('team.index')}}">
+                            <i class="fas fa-users"></i> Resumen Equipo
+                        </a>
                         <a class="collapse-item" href="{{ route('professional.index')}}">
                             <i class="fas fa-users"></i> Equipo Completo
                         </a>

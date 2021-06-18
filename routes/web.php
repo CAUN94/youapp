@@ -34,7 +34,8 @@ Route::get('/scraping-payments', 'ScrapingController@payments')->name('scraping-
 Route::get('/professional', 'ProfessionalController@index')->name('professional.index');
 Route::get('/professional/{name}', 'ProfessionalController@show')->name('professional.show');
 
-Route::get('/weekreport', 'WeekController@index')->name('week.index');
+Route::get('/team', 'TeamController@index')->name('team.index');
+
 Route::get('/weekreport', 'WeekController@index')->name('week.index');
 Route::post('/weekreport', 'WeekController@show')->name('form-week');
 

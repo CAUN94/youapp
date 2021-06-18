@@ -21,7 +21,8 @@ class WeekController extends Controller
         from payments
         where Fecha >= '".$startOfWeek1."'
         and Fecha <= '".$endOfWeek1."'
-        group by Medio;";
+        group by Medio
+        order by count desc;";
 
         $pay_methods_week_1 = DB::select( DB::raw($sql));
 
@@ -33,7 +34,8 @@ class WeekController extends Controller
         from payments
         where Fecha >= '".$startOfWeek2."'
         and Fecha <= '".$endOfWeek2."'
-        group by Medio;";
+        group by Medio
+        order by count desc;";
 
         $pay_methods_week_2 = DB::select( DB::raw($sql));
 
@@ -57,7 +59,8 @@ class WeekController extends Controller
         from payments
         where Fecha >= '".$startOfWeek."'
         and Fecha <= '".$endOfWeek."'
-        group by Medio;";
+        group by Medio
+        order by count desc;";
 
         $pay_methods_week = DB::select( DB::raw($sql));
 
