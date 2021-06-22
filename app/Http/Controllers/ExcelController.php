@@ -6,6 +6,7 @@ use App\Exports\CloseExport;
 use App\Exports\LastWeekExport;
 use App\Exports\MonthExport;
 use App\Exports\ProfessionalsExport;
+use App\Exports\TeamExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -45,6 +46,11 @@ class ExcelController extends Controller
     public function professional($name)
     {
         return Excel::download(new ProfessionalExport($name), $name.".xlsx");
+    }
+
+    public function team()
+    {
+        return Excel::download(new TeamExport(), "equipoyou.xlsx");
     }
 
 }

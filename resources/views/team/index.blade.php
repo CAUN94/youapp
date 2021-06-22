@@ -5,9 +5,11 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Resumen Equipo You</h1>
-        {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Descargar Reporte</a> --}}
+        {{-- <a href="{{ route('excel-team') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Descargar Reporte
+        </a> --}}
     </div>
+
     @foreach ($summarys as  $summary)
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h2 class="h5 mb-0 text-gray-800">{{$names[$loop->index]}}</h2>

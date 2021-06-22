@@ -107,6 +107,9 @@ class TeamController extends Controller
             'María Jesús Martinez León' => 0.45,
             'Melissa Ross Guerra' => 0.55,
             'Cristina Valenzuela ' => 0.42,
+            'Adolfo Lopez Macera' => 0.46,
+            'Diego Ignacio Contreras Briceño' => 0.7,
+            'You Entrenamiento' => 1,
         ];
 
         return $coff[$name];

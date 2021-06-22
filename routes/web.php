@@ -18,6 +18,7 @@ Route::get('/general', 'HomeController@general')->name('general');
 Route::get('/excel/ocuppation/{type}', 'ExcelController@occupation')->name('excel-download');
 Route::get('/excel/professional', 'ExcelController@professionals')->name('excel-professionals');
 Route::get('/excel/professional/{name}', 'ExcelController@professional')->name('excel-professional');
+Route::get('/excel/team', 'ExcelController@team')->name('excel-team');
 
 Route::get('/fintoc', 'FintocController@index')->name('fintoc');
 Route::get('/transfers', 'TransfersController@index')->name('transfers');
