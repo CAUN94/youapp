@@ -253,6 +253,9 @@ class OccupationController extends Controller
             'Dr. Juan Manuel Guzmán Habinger' => 0.7,
             'Sara Tarifeño Ramos' => 1,
             'María Jesús Martinez León' => 0.45,
+            'Adolfo Lopez Macera' => 0.46,
+            'Diego Ignacio Contreras Briceño' => 0.7,
+            'You Entrenamiento' => 1,
         ];
 
         return $coff[auth::user()->medilinkname];
