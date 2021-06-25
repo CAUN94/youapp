@@ -94,15 +94,15 @@ class TeamController extends Controller
     public function coefficient($name)
     {
         $coff = [
-            'Klgo. Alonso Niklitschek Sanhueza' => 0.6,
-            'Klgo. César Moya Calderón' => 0.32,
-            'Klga. Daniella Vivallo Vera' => 0.45,
+            'Alonso Niklitschek Sanhueza' => 0.6,
+            'César Moya Calderón' => 0.32,
+            'Daniella Vivallo Vera' => 0.45,
+            'Juan Manuel Guzmán Habinger' => 0.7,
+            'Iver Cristi' => 0.6,
             'Renata Barchiesi Vitali' => 0.6,
-            'Klgo. Iver Cristi' => 0.6,
             'Sofía Vitali Magasich' => 0.45,
             'Carolina Avilés Espinoza' => 0.7,
             'Mariano Neira Palomo' => 0.45,
-            'Dr. Juan Manuel Guzmán Habinger' => 0.7,
             'Sara Tarifeño Ramos' => 1,
             'María Jesús Martinez León' => 0.45,
             'Melissa Ross Guerra' => 0.55,
