@@ -75,7 +75,6 @@ class HomeController extends Controller
         auth::user()->authorizeRoles(['admin']);
         $pacientes = Appointment::tomorrow_appoiments();
         $appointment_last = Appointment::last_register();
-
         return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
     }
 

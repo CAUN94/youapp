@@ -12,7 +12,14 @@ pacientes.forEach(function (paciente) {
         precio = precio.replace(/\s/g,'%20')
         phone = "569"+ paciente['Celular'].substr(paciente['Celular'].length - 8);
         mail = "<a href=mailto:"+paciente['Mail']+">"+paciente['Mail']+"</a>"
-        texto = 'Hola '+paciente['Nombre_paciente']+'! Te recordamos que tienes atención mañana con '+profesional+' a las '+hora+' hrs.'
+        var d = new Date(paciente['Fecha']);
+        var dayName = d.toString().split(' ')[0];
+        if ( dayName == 'Mon'){
+            texto = 'Hola '+paciente['Nombre_paciente']+'! Te recordamos que tienes atención el lunes con '+profesional+' a las '+hora+' hrs.'
+        } else {
+            texto = 'Hola '+paciente['Nombre_paciente']+'! Te recordamos que tienes atención mañana con '+profesional+' a las '+hora+' hrs.'
+        }
+
 
         if(paciente['TotalAtencion']!=0){
             texto += '--No olvides pagar antes de tu atención en el siguiente link http://yjb.cl/pago. El monto a pagar es de '+precio
