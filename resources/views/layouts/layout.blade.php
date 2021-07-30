@@ -94,6 +94,13 @@
                             <i class="fas fa-window-close"></i>
                             <span>Fugados</span>
                         </a>
+                        <hr>
+                        <h6 class="collapse-header">Confirmación Día:</h6>
+                        <form class="side" method="POST" action="{{ route('tomorrow.form')}}">
+                            @csrf
+                            <input class="form-control" name="day" type="date">
+                            <input class="form-control" type="submit">
+                        </form>
                     </div>
                 </div>
             </li>

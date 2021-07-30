@@ -78,6 +78,16 @@ class HomeController extends Controller
         return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
     }
 
+    public function tomorrowform(Request $request)
+    {
+        auth::user()->authorizeRoles(['admin']);
+        // $day = $request;
+
+        $pacientes = Appointment::form_appoiments($request->day);
+        $appointment_last = Appointment::last_register();
+        return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
+    }
+
     public function training()
     {
         auth::user()->authorizeRoles(['admin']);

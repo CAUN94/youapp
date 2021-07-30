@@ -40,6 +40,11 @@ class Appointment extends Model
         return DB::select( DB::raw("select a.id, a.Tratamiento_Nr, a.Profesional , a.Rut_Paciente,Fecha, Estado,Nombre_paciente,Apellidos_paciente,Celular,Hora_inicio,Mail from appointments as a  where  a.id in (SELECT max(id) FROM appointments group by Tratamiento_Nr) and a.Tratamiento_Nr = '".$nr."' order by Hora_inicio asc") );
     }
 
+    public static function form_appoiments($day){
+        return DB::select( DB::raw("select a.id,a.Profesional , a.Tratamiento_Nr, Estado,Nombre_paciente,Apellidos_paciente,Celular,Hora_inicio,TotalAtencion+Avance as TotalAtencion,Mail,Fecha from appointments as a join treatments
+        on a.Tratamiento_Nr = treatments.Atencion where  a.id in (SELECT max(id) FROM appointments where Fecha = '".$day."'  group by Tratamiento_Nr) and Estado in ('No Confirmado','Agenda Online') order by Fecha asc,Hora_inicio asc") );
+    }
+
     public static function noRepeat()
     {
     	return Appointment::groupBy('Estado','Fecha','Hora_inicio','Hora_termino','Fecha_Generación','Tratamiento_Nr','Profesional','Rut_Paciente','Nombre_paciente','Apellidos_paciente','Mail','Telefono','Celular','Convenio','Convenio_Secundario','Generación_Presupuesto','Sucursal')->get();
