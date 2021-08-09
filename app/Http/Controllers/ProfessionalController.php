@@ -15,43 +15,35 @@ class ProfessionalController extends Controller
 
     public function index()
     {
-        if(!auth::user()->hasRole('admin')){
-                abort(401);
+
+        $actions = Action::professionalsCloseMonth();
+        $summary = $this->summary($actions);
+        foreach ($actions as $key => $action) {
+            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
+            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
         }
-        if(auth::user()->hasRole('admin')){
-            $actions = Action::professionalsCloseMonth();
-            $summary = $this->summary($actions);
-            foreach ($actions as $key => $action) {
-                $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-                $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
-            }
-            $goal = 300;
-            $percentage = round($summary['Total']*100/$goal,1);
-            $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
-            $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
-            return view('professionals.index',compact('actions','summary','goal','percentage'));
-        }
+        $goal = 300;
+        $percentage = round($summary['Total']*100/$goal,1);
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
+        return view('professionals.index',compact('actions','summary','goal','percentage'));
+
     }
 
     public function show($name)
     {
-        if(!auth::user()->hasRole('admin')){
-                abort(401);
+        $actions = Action::professionalCloseMonth($name);
+        $summary = $this->summary($actions);
+        foreach ($actions as $key => $action) {
+            $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
+            $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
         }
-        if(auth::user()->hasRole('admin')){
-            $actions = Action::professionalCloseMonth($name);
-            $summary = $this->summary($actions);
-            foreach ($actions as $key => $action) {
-                $actions[$key]->Prestación = $this->moneda_chilena($actions[$key]->Prestación);
-                $actions[$key]->Abono = $this->moneda_chilena($actions[$key]->Abono);
-            }
-            $goal = 300;
-            $percentage = round($summary['Total']*100/$goal,1);
-            $remuneration = $this->moneda_chilena($summary['Prestación']*$this->coefficient($name));
-            $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
-            $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
-            return view('professionals.show',compact('actions','summary','name','goal','percentage','remuneration'));
-        }
+        $goal = 300;
+        $percentage = round($summary['Total']*100/$goal,1);
+        $remuneration = $this->moneda_chilena($summary['Prestación']*$this->coefficient($name));
+        $summary['Prestación'] = $this->moneda_chilena($summary['Prestación']);
+        $summary['Abono'] = $this->moneda_chilena($summary['Abono']);
+        return view('professionals.show',compact('actions','summary','name','goal','percentage','remuneration'));
 
 
     }

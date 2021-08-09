@@ -42,27 +42,23 @@ class HomeController extends Controller
 
     public function panel()
     {
-        auth::user()->authorizeRoles(['admin']);
         $pacientes = DB::table('appointments')->groupBy('Rut_Paciente')->orderBy('Fecha_Generación','desc')->get();
         return view('you-wsp/index',compact('pacientes'));
     }
 
     public function excel()
     {
-        auth::user()->authorizeRoles(['admin']);
         return view('you-wsp/excel');
     }
 
     public function canceled()
     {
-        auth::user()->authorizeRoles(['admin']);
         $canceled = Appointment::canceled();
         return view('canceled/index',compact('canceled'));
     }
 
     public function today()
     {
-        auth::user()->authorizeRoles(['admin']);
         $date = Carbon::today();
         $pacientes = Appointment::appoiments($date);
         $appointment_last = Appointment::last_register();
@@ -72,7 +68,6 @@ class HomeController extends Controller
 
     public function tomorrow()
     {
-        auth::user()->authorizeRoles(['admin']);
         $pacientes = Appointment::tomorrow_appoiments();
         $appointment_last = Appointment::last_register();
         return view('you-wsp/tomorrow',compact('appointment_last','pacientes'));
@@ -80,7 +75,6 @@ class HomeController extends Controller
 
     public function tomorrowform(Request $request)
     {
-        auth::user()->authorizeRoles(['admin']);
         // $day = $request;
 
         $pacientes = Appointment::form_appoiments($request->day);
@@ -90,14 +84,12 @@ class HomeController extends Controller
 
     public function training()
     {
-        auth::user()->authorizeRoles(['admin']);
         return view('you-wsp/training');
     }
 
     // Falta hacer refactoring
     public function general()
     {
-        auth::user()->authorizeRoles(['admin']);
         // $now = Carbon::now()->addMonth();
         $last = Carbon::now()->subYear();
         $endOfYear = $last->copy()->endOfYear();

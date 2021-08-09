@@ -16,10 +16,6 @@ class TeamController extends Controller
 
     public function index()
     {
-        if(!auth::user()->hasRole('admin')){
-                abort(401);
-        }
-
         $profesionals = User::where('medilinkname','<>','null')->get();
 
         $summarys = [];
