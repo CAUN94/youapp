@@ -91,10 +91,12 @@ class ScrapingController extends Controller
 		$date = Carbon::create(null, null, null)->subMonth()->subMonth()->format('Y-m-d');
 
 		$array = substr($array,2,-2);
+
 		$split = explode('},{', $array);
 		foreach ($split as $string)
 		{
 			$jsonobj = "{".$string."}";
+
 			$value = json_decode($jsonobj, true);
 			if($value["Fecha Realizacion"] >= $date){
 				$action = new Action();
