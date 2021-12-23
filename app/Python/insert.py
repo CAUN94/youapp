@@ -90,8 +90,8 @@ def sql_insert(movements,mydb,type_):
 
 mydb = sql_connector()
 today = date.today()
-client = "sk_live_tGx736GM-Z98FuhoyLn8ngg9NK75V3sE"
-link = "AMjplGZ1iZYX50Kq_token_yNiNCDE3xa3XaNxK2yGbMdZS"
+client = "sk_live_MHJx2wuSA2gpzv-wBSxrhpJHZtGnCM_3"
+link = "link_V2byLzvivAVL0Wnw_token_wys-rVko1A1UNaxvrJFUm3NW"
 yesterday = date.today() - timedelta(days=1)
 date_since = '2021-02-01'
 

@@ -24,9 +24,9 @@ class TransfersController extends Controller
         $transfers = [];
         for ($i=0; $i < $diff+1; $i++) {
             $response = Http::withHeaders([
-            'Authorization' => 'sk_live_tGx736GM-Z98FuhoyLn8ngg9NK75V3sE',
+            'Authorization' => 'sk_live_MHJx2wuSA2gpzv-wBSxrhpJHZtGnCM_3',
             ])->get('https://api.fintoc.com/v1/accounts/b8XkZle9TdZlVQ6z/movements',[
-                'link_token' => 'AMjplGZ1iZYX50Kq_token_yNiNCDE3xa3XaNxK2yGbMdZS',
+                'link_token' => 'link_V2byLzvivAVL0Wnw_token_wys-rVko1A1UNaxvrJFUm3NW',
                 'since' => $since->format('Y-m-d'),
                 'until' => $until->format('Y-m-d'),
                 'per_page' => 300,
